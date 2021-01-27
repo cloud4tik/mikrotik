@@ -8,10 +8,10 @@
 
 :local config {
 
-"url"="https://ipv4.cloudns.net/api/dynamicURL/?q="
+"url"="https://ipv4.cloudns.net/api/dynamicURL/?q=";
 
 #2
-"2@14.net"="MjU0MTkxMjoxOTE2MTgzMDM6NjI4ZDU1YzE2N2JiMzlmM2FiNzc4MTljNGYwNGQwZGM3MTE3MWM1N2RkMDZiZDA4NTczNTA4MTBhZmM4ZTkyOQ&ip="
+"2@14.net"="MjU0MTkxMjoxOTE2MTgzMDM6NjI4ZDU1YzE2N2JiMzlmM2FiNzc4MTljNGYwNGQwZGM3MTE3MWM1N2RkMDZiZDA4NTczNTA4MTBhZmM4ZTkyOQ&ip=";
 #3
 "3@14.net"="MjU0MTkxMjoxOTE2MTg1MTc6MWFhMjY3MzVkNjg2NjljY2E1NjAzNTkxMjU0ZmQ2Nzg1ZWFiNzY4OTgwN2Q1N2FkYmJjYTE3ZDA5NTExMDI1ZA&ip=";
 #4
