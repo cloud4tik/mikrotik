@@ -19,10 +19,10 @@
   /int pptp-client enable [find where name="$[/interface pptp-client get $int name]"]
   }
 }
-:delay 5s ;
+:delay 3s ;
 :log warning "All vpn connection has been enabled.." ;
 :log warning "Checking the connected VPN..." ;
-:delay 10s ;
+:delay 3s ;
 :foreach int in=[/interface pptp-client find] do={
   :set pptplist "$pptplist pptp: $[/interface pptp-client get $int name] :  $[/interface pptp-client get $int running] \n" ;
   :if ( [/interface pptp-client get $int running] = true ) do={
