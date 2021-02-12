@@ -1,0 +1,42 @@
+#Script v3.0
+#Update public ip with caller-id
+#/sys script add name=TokenIPUpdate-dynv6.com
+#this script for All Router. Update per ip router
+#this token update ip for All Router (dynv6.com)
+:log info "loaded token dns..";
+
+:local config {
+
+:local n "14.net";
+"url"="https://dynv6.com/api/update?hostname=";
+
+#2
+"2@3.net"="02net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#3
+"3@3.net"="03net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#4
+"4@3.net"="04net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#5
+"5@3.net"="05net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#6
+"6@3.net"="06net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#7
+"7@3.net"="07net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#8
+"8@3.net"="08net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#9
+"9@3.net"="09net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#10
+"10@3.net"="10net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#11
+"11@3.net"="11net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#12
+"12@3.net"="12net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#13
+"13@3.net"="13net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#14
+"14@3.net"="14net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+#15
+"15@3.net"="15net.dynv6.net&token=EPh2z9sBVyujj2Qh8Q9VhvKwEBPaXC&ipv4=";
+}
+return $config
