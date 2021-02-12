@@ -1,0 +1,31 @@
+#/sys sch ad na="DisableVPNnotActive-00:20:20" start-t=startup in=00:05:05
+#Auto Reconect and check PPTP status version NoDelay
+#----------------------------------
+
+:local oldvlist ;
+:local pptplist "pptp interfaces \n \n" ;
+#:local l2tplist "L2TP interfaces \n \n" ;
+:local vlist ;
+:local int ;
+
+:set pptplist "$pptplist \n \n CLIENTS: \n" ;
+:log error "Checking status VPN connection. Please wait a moment.."
+:delay 1s
+:log warning "Enable all VPN connection.."
+
+:foreach int in=[/interface pptp-client find] do={
+  :set pptplist "$pptplist pptp: $[/interface pptp-client get $int name] :  $[/interface pptp-client get $int running] \n" ;
+  :if ( [/interface pptp-client get $int running] = true ) do={
+     :log warning "VPN $[/interface pptp-client get $int name] connected.." ;
+     :log info ""
+     :log warning "Checking another VPN connected..."
+  } else={
+  :log error "VPN $[/interface pptp-client get $int name] not connected.." ;
+  :log error "Disabled the vpn connection.."
+  /int pptp-client disable [find where name="$[/interface pptp-client get $int name]"]
+  :log warning "Checking another VPN connected..."
+  }
+}
+:delay 2s
+:log error "No other VPN connection..."
+:log warning "Finish..."
