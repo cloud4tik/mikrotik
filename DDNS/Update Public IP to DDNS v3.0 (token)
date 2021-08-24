@@ -1,4 +1,4 @@
-#Update Public IP to DDNS v3.0 (token)
+#Update Public IP to DDNS Online Version v3.0 (token online)
 #Update public ip all router
 #/sys script add name=TokenUpdateIpMikrtoik
 #this script for All Router
@@ -13,9 +13,9 @@
 "2-1"="MjUxNDQxOToxOTAzOTg1MTE6MDFlZmYzNjEzYmExYWE0NzkyN2JiNWI0OTMxMTIxNDBhMjJhYTQ3ODY5MzIxMGFmMDhjODU0MTJkOTliMTNkNA";
 #cibay
 "3-1"="MjUxNDQxOToxOTAzOTg1MTU6NWYxZjQ5ZGE2MzQ5ZDczY2ViMjJhN2QwZDhmMDU1Nzk2MWVjZDM3OTQ1Yjg5NmJiM2E0YmZjNDZiN2EwODI3YQ";
-#TineloHotspot by CibayHOtspot
+#teknisiponsel
 "4-1"="MjUxNDQxOToyMTUxNzgyNzI6Y2FiODQ0NzRkNjU4YjAxOTUzYTdiMmYyYzVlODg3MWVkMmU5OGU1NjMwYzQ5NjVlNjQ0ZDBlYWY1ZGNmODQyMg";
-#ramli
+#kosong
 "5-1"="MjUxNDQxOToyMDc5MzYxNjU6MjAyYTU3ZGM2NjU5MDEyMGE2OGFhMTc5YjcyM2IyYzI5NzkzMzA0ZDQyOTMxOTljNmFjN2IzNzA2NTc3NWYxOQ";
 #rasep
 "6-1"="MjUxNDQxOToxOTAzOTg1MTc6YTM2ZTNhNDg2OTlkYjcyMmM0MjBiMjY5OTRkYmI2NjY3MTM0YTUxOGIxZDk1MDNmZTdkZGEyZDQ0YWE4MGQ4ZA";
@@ -23,9 +23,9 @@
 "7-1"="MjUxNDQxOToxOTA0NzA0NDU6ZjQxNWE1NWFhMmQ5ODQ3NGYyZjU4ZGFkNjE1MzQ3NmZlM2JkZTFhNmVlMmQ3ZjZmYjU2YmVlZGI1ZmE0NzJkYw";
 #wahfey
 "8-1"="MjUxNDQxOToxOTIwMjk0MjA6ODQwODcxZDVlMWM0NWVhNzRmYWM2MWZkZTJmNDE0NzQxODE1NDg5ODZkZDM1Yzg3M2M2MTNlMzRkZTYzY2U3MA";
-#ansukesnet
+#Ansukesnet
 "9-1"="MjUxNDQxOToxOTM3MDU4MTY6YmExZjQwNGUwOTc5YTA0Y2Y1NjVhMDg1Yjk2ZmFmNjNmZTJiZGNhZDlmMTBkYmI1ZWE2NzY1YjU0ZTNhOTAwNg";
-#nolimitstudio
+#nolimidstudio
 "10-1"="MjUxNDQxOToxOTEyMjAzNzQ6ZWJhZjYwYTdlYmQ0YjQ2ZWQ0NjQ1ZjgxYTUwZGIzOTM1NjdhYjAxYjcxMTJhMmUwNTk3MDFmMWI2MTBiYjM0NA";
 #poowonet
 "11-1"="MjUxNDQxOToxOTAzOTg1MTg6MjYwMTMxMWRlZTljOTUyZjY1NjdkZjU2YzcyOWY4NmE0NjY5ZWRjYzVjMWViMDMzNTFlZmM4OGFiMjk1MWJhMg";
@@ -35,13 +35,13 @@
 "13-1"="MjUxNDQxOToyMDczNTIzMjI6ZjZhYTliMGFkYzE1ODRhYzZiMWQwM2Q5MmM4MGNhMDBmYzg3ZTExNWE4YjRhNjNmODdlMmQ1OTViY2ZkZTNjMg";
 #fauziahnet-sopyas
 "14-1"="MjUxNDQxOToyMDczNTIzMjU6YmE3ZWNiMjU3MWM1YWYwZmM1MWEwZGU3MTMzZjBmNGE4MGFkYzYwZDZiMGMyNDMxMzZkMzJjZDdiZDFiZDNhMw";
-#masih kosong
+#lolanet
 "15-1"="MjUxNDQxOToyMDczNTIzMjY6ZDU4Mjg4ODI1YTNmNWVlNjNhYzkzNzljY2I2NTRhMGU0ZWU3OTAyOTczMWQ4ZWU4ZTU5OGVjOTcyYTY0NTg0YQ";
 
 
 #=======================
 
-#url2=backup.cloudns.asia
+#url2=tunnel.hostddns.us
 "url2"="https://tunnel.hostddns.us/ddns/"
 
 #ayreelin
@@ -70,6 +70,7 @@
 "13-2"="42cc696a3b587ae3feda9e16902000d4";
 #fauziahnet-sopyas
 "14-2"="ad332da8d8106ca3482aed575d4d9487";
-
+#lolannet
+"14-2"="7317e772a82f8eeb947fe1427ff18614";
 }
 return $config
