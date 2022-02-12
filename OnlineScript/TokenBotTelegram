@@ -1,0 +1,55 @@
+#Token For Bot Telegram
+#------------
+#/sys script add name=TokenBotTelegram
+#https://api.telegram.org/bot1060041205:AAG5fofVSyKcqOq5Hst6zE-gzDDvFLxpp4k/getMe
+#https://api.telegram.org/bot1060041205:AAG5fofVSyKcqOq5Hst6zE-gzDDvFLxpp4k/getUpdates
+#grup telegram /join @(nama BOT)
+#https://api.telegram.org/bot$tokenID/sendmessage?chat_id=$chatID&text=test
+
+:log info "Load token bot telegram..";
+
+:local config {
+
+"url"="https://api.telegram.org/bot"
+
+#ayreelin
+"ayreelin-tokenID"="909083035:AAGyJarQb-A1YTN0pYlqk2ai2wqg8ch9pdM"
+"ayreelin-chatID"="-355713274"
+#cibay
+"cibay-tokenID"="1017888145:AAFkK00u7bw6OGTWoBODusECzOUZ076TRUU"
+"cibay-chatID"="-360258609"
+#tinelohotspot by cibayhotspot
+"tinelohotspot-tokenID"="1335267424:AAFoL0R23N8ijh5j6pT30GLTKXTYLFfEXU0"
+"tinelohotspot-chatID"="-495984282"
+#rasep
+"rasep-tokenID"="947249422:AAGs34MnBVk19SM0IIrapQW-Ky3JQQBu9p4"
+"rasep-chatID"="-377258445"
+#smkn1bulsel
+"smkn1bulsel-tokenID"=""
+"smkn1bulsel-chatID"=""
+#wahfey
+"wahfey-tokenID"="1520749887:AAHC0VoogRY9MyI66cPp_8Lwwm11BgcvNuI"
+"wahfey-chatID"="-419905153"
+#rahmathotspot
+"rahmathotspot-tokenID"=""
+"rahmathotspot-chatID"=""
+#ansukesnet
+"ansukesnet-tokenID"="926768260:AAFRunyhFzP9dkkaql3FttR1UACOoGZ4mhk"
+"ansukesnet-chatID"="-298890735"
+#aynun21net
+"aynun21net-tokenID"="833773179:AAGVHaaSnrS7WblLQ-SGinp1olf_wZHvugU"
+"aynun21net-chatID"="-328027733"
+#poowonet
+"poowonet-tokenID"="1060041205:AAG5fofVSyKcqOq5Hst6zE-gzDDvFLxpp4k"
+"poowonet-chatID"="-341656877"
+#ramlinet
+"ramlinet-tokenID"="1363455674:AAFfeI9qLEyIHwuas5tvp2aB7pzFgAwFQMQ"
+"ramlinet-chatID"="-476487690"
+#nanditohotspot
+"nanditohotspot-tokenID"="1403234996:AAFw2IvK1wsTYlgQNq3NuwgJyQAhPZFcc_8"
+"nanditohotspot-chatID"="-342116148"
+#ratuhoki
+"ratuhoki-tokenID"="1467705410:AAH8utMXGPVhT1juGVmUoihoIrHhdihC42M"
+"ratuhoki-chatID"="-335469963"
+}
+return $config
