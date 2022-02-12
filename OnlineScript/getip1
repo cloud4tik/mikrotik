@@ -1,0 +1,8 @@
+:log info "test"
+/tool fetch url="http://ip1.dynupdate.no-ip.com/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
+:delay 2s
+:local result [/file get publicip.txt contents]
+
+:log info "new cloud ip $result"
+
+/file remove "publicip.txt"
