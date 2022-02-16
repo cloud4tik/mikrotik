@@ -34,9 +34,9 @@
 #/ip firewall nat set [find where comment=public1] dst-address=$newip
 
 :log info "update ip cloud"
-/ip cloud force-update
-:delay 2s
-:log info "...."
+#/ip cloud force-update
+#:delay 2s
+#:log info "...."
 
 /tool fetch url="$url1$token1" mode=https dst-path="$user-1 update ip"
 :delay 4s
