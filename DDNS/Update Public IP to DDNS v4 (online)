@@ -85,4 +85,5 @@ if ([/file find where name="$name"] != "") do={/file remove "$name"}
 :log info "$currentip = $newip"
 :log warning "ddns ip no need update.."
 :log warning "Finish.."
+
 }
