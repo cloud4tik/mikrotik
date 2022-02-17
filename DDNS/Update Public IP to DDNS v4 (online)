@@ -1,5 +1,4 @@
-
-:local user ("DDNS Mikrotik")
+:local name ("DDNS Mikrotik")
 :local getip "https://v4.ident.me"
 :local publicip ("publicip")
 :local tokenurl "https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20v3.0%20(token)"
@@ -16,8 +15,7 @@
 :log info "neip=$newip"
 
 :if ($currentip != $newip) do={
-:local owner [sys scr get [find where name=$user] owner]
-:set $user $owner
+:local user [sys scr get [find where name=$name] owner]
 :log info "tidak sama"
 :log info "user =$user"
 
@@ -66,7 +64,9 @@
 :log info "...."
 
 :delay 2s
-/file remove "$file"
+if ([/file find where name="$tokendns"] != "") do={/file remove "$tokendns"}
+if ([/file find where name="$publicip"] != "") do={/file remove "$publicip"}
+if ([/file find where name="$name"] != "") do={/file remove "$name"}
 /sys scr rem "$file"
 
 :delay 1s
