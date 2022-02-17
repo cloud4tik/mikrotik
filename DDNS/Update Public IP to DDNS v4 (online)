@@ -2,7 +2,8 @@
 :local user ("DDNS Mikrotik")
 :local getip "https://v4.ident.me"
 :local publicip ("publicip")
-:local tokendns "https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20v3.0%20(token)"
+:local tokenurl "https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20v3.0%20(token)"
+:local tokendns ("tokendns")
 :local currentip [/ip firewall filter get [find where comment=public] dst-address];
 
 #get public ip
@@ -37,6 +38,20 @@
 #/ip cloud force-update
 #:delay 2s
 #:log info "...."
+/tool fetch url="$tokenurl" mode=https src-path="/" dst-path="/$tokendns"
+:delay 3s
+:local tokendata [/file get "$tokendns" contents]
+/sys scr add name="$tokendns" comment="$tokendns" source="$tokendata"
+:delay 3s
+
+:local fconfig [:parse [/system script get $tokendns source]]
+
+:local cfg [$fconfig]
+:put "cfg=$cfg"
+:local url1 ($cfg->"url1")
+:local url2 ($cfg->"url2")
+:local token1 ($cfg->"$user-1")
+:local token2 ($cfg->"$user-2")
 
 /tool fetch url="$url1$token1" mode=https dst-path="$user-1 update ip"
 :delay 4s
