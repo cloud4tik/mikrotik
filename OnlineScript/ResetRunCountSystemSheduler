@@ -1,0 +1,52 @@
+#ResetRunCountSystemSheduler
+#/sys sch ad na="ResetRunCount-1d 05:05:05" start-t=startup in="1d 05:05:05"
+#===================================
+
+#:delay 50s
+
+:local scheduleNumber
+:local scheduleName
+:local scheduleDate
+:local scheduleTime
+:local scheduleInterval
+:local schedulePolicy
+:local scheduleOnEvent
+:local scheduleComment
+:local scheduleDisable
+
+/system scheduler
+
+#   Loop through schedule(s) with run counts greater than 0.
+    :foreach scheduleNumber in=[find run-count > 0] do={
+
+#   Get schedule Name value.
+    :set scheduleName [get value-name=name number=$scheduleNumber]
+
+#   Get schedule Start-Date value.
+    :set scheduleDate [get value-name=start-date number=$scheduleNumber]
+
+#   Get schedule Start-Time value.
+    :set scheduleTime [get value-name=start-time number=$scheduleNumber]
+
+#   Get schedule Interval value.
+    :set scheduleInterval [get value-name=interval number=$scheduleNumber]
+
+#   Get schedule Policy value.
+    :set schedulePolicy [get value-name=policy number=$scheduleNumber]
+
+#   Get schedule On-Event value.
+    :set scheduleOnEvent [get value-name=on-event number=$scheduleNumber]
+
+#   Get schedule Comment value.
+    :set scheduleComment [get value-name=comment number=$scheduleNumber]
+
+#   Get schedule Disable value.
+    :set scheduleDisable [get value-name=disable number=$scheduleNumber]
+
+#   Remove schedule.
+    remove $scheduleNumber
+
+#   Add schedule.
+    add name=$scheduleName start-date=$scheduleDate start-time=$scheduleTime interval=$scheduleInterval policy=$schedulePolicy on-event=$scheduleOnEvent comment=$scheduleComment disable=$scheduleDisable
+
+}
