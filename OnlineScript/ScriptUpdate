@@ -1,1 +1,7 @@
-:log info "hello"
+:local ResetRunCoun ("Reset Run Count")
+
+if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="$ResetRunCoun"] != "") do={
+	:log info "ada"
+} else={
+	:log info "tidak ada"
+}
