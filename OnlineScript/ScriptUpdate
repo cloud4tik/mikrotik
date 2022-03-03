@@ -1,4 +1,5 @@
 :local ResetRunCoun ("Reset Run Count")
+:local tokenTelegram ("TokenBotTelegram")
 :local comm [/sys scr get [find name="ScriptUpdate"] comment]
 :local owner [/sys scr get [find name="ScriptUpdate"] owner]
 
@@ -7,10 +8,10 @@ if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="
 } else={
 	:log info "tidak ada"
 	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ResetRunCountSystemSheduler" mode=https src-path="/" dst-path="/$ResetRunCoun"
-	:delay 3s
+	:delay 2s
 	:local dataReset [/file get "$ResetRunCoun" contents]
-	:delay 3s
+	:delay 2s
 	/sys scr add name="$ResetRunCoun" comment="$comm" owner=$owner source="$dataReset"
 	:delay 2s
-	/sys scr run [find where name="$dataReset"]
+	/sys scr run [find where name="$ResetRunCoun"]
 }
