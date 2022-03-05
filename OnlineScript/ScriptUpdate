@@ -8,7 +8,8 @@
 :local file
 
 #Reset Reset Run Count sys Sheduler
-if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="$ResetRunCoun"] != "") do={
+#if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="$ResetRunCoun"] != "") do={
+if ([/sys scr find where name="$ResetRunCoun"] != "") do={
 	:set $file ("$ResetRunCoun")
     /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/MikrotikErrorMessage" mode=https src-path="/" dst-path="/$msg-$file"
 	:delay 2s
@@ -41,7 +42,7 @@ if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="
 
 #PPTP Connection Check (Add and Remove PPTP connection)
 
-if ([/file find where name="$vpn"] != "" or [/sys scr find where name="$vpn"] != "") do={
+if ([/sys scr find where name="$vpn"] != "") do={
 	:set $file ("$vpn")
     /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/MikrotikErrorMessage" mode=https src-path="/" dst-path="/$msg-$file"
 	:delay 2s
