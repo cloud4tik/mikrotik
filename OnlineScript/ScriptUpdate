@@ -9,7 +9,7 @@
 
 #Reset Reset Run Count sys Sheduler
 if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="$ResetRunCoun"] != "") do={
-	:set file="$ResetRunCoun"
+	:set $file ("$ResetRunCoun")
     /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/MikrotikErrorMessage" mode=https src-path="/" dst-path="/$msg-$file"
 	:delay 2s
 	:local filedata [/file get "$msg-$file" contents]
@@ -20,23 +20,21 @@ if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="
 	:delay 1s
 	/sys scr rem [find where name="$msg-$file"]
 	/file rem [find where name="$msg-$file"]
-
-
-	/sys scr run [find where name="$ResetRunCoun"]
 	:delay 1s
-	/file rem [find where name=$ResetRunCoun]
-	/sys scr rem [find where name="$ResetRunCoun"]
+	/file rem [find where name=$file]
+	/sys scr rem [find where name="$file"]
 } else={
-	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ResetRunCountSystemSheduler" mode=https src-path="/" dst-path="/$ResetRunCoun"
+	:set $file ("$ResetRunCoun")
+	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ResetRunCountSystemSheduler" mode=https src-path="/" dst-path="/$file"
 	:delay 2s
-	:local dataReset [/file get "$ResetRunCoun" contents]
+	:local dataReset [/file get "$file" contents]
 	:delay 2s
-	/sys scr add name="$ResetRunCoun" comment="$user" owner=$owner source="$dataReset"
+	/sys scr add name="$file" comment="$user" owner=$owner source="$dataReset"
 	:delay 1s
-	/sys scr run [find where name="$ResetRunCoun"]
+	/sys scr run [find where name="$file"]
 	:delay 1s
-	/file rem [find where name=$ResetRunCoun]
-	/sys scr rem [find where name="$ResetRunCoun"]
+	/file rem [find where name=$file]
+	/sys scr rem [find where name="$file"]
 }
 
 :delay 1s
@@ -44,19 +42,30 @@ if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="
 #PPTP Connection Check (Add and Remove PPTP connection)
 
 if ([/file find where name="$vpn"] != "" or [/sys scr find where name="$vpn"] != "") do={
-	/sys scr run [find where name="$vpn"]
+	:set $file ("$vpn")
+    /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/MikrotikErrorMessage" mode=https src-path="/" dst-path="/$msg-$file"
+	:delay 2s
+	:local filedata [/file get "$msg-$file" contents]
 	:delay 1s
-	/file rem [find where name=$vpn]
-	/sys scr rem [find where name="$vpn"]
+	/sys scr add name="$msg-$file" comment="$msg" owner=$file source="$filedata"
+	:delay 1s
+	/sys scr run [find where name="$msg-$file"]
+	:delay 1s
+	/sys scr rem [find where name="$msg-$file"]
+	/file rem [find where name="$msg-$file"]
+	:delay 1s
+	/file rem [find where name=$file]
+	/sys scr rem [find where name="$file"]
 } else={
-	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$vpn"
+	:set $file ("$vpn")
+	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$file"
 	:delay 2s
-	:local dataVpn [/file get "$vpn" contents]
+	:local dataVpn [/file get "$file" contents]
 	:delay 2s
-	/sys scr add name="$vpn" comment="$user" owner=$owner source="$dataVpn"
+	/sys scr add name="$file" comment="$user" owner=$owner source="$dataVpn"
 	:delay 1s
-	/sys scr run [find where name="$vpn"]
+	/sys scr run [find where name="$file"]
 	:delay 1s
-	/file rem [find where name=$vpn]
-	/sys scr rem [find where name="$vpn"]
+	/file rem [find where name=$file]
+	/sys scr rem [find where name="$file"]
 }
