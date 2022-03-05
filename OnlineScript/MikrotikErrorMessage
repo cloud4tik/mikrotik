@@ -1,5 +1,4 @@
 :local user [/sys scr get [find name="ScriptUpdate"] comment]
-:local usernama [/sys scr get [find name="ScriptUpdate"] name]
 :local router [sys iden get name]
 :local tokenBot ("TokenBotTelegram")
 :local date [/sys clo get date ];
@@ -8,8 +7,8 @@
 :local ip [/ip firewall raw get [find where comment="vpn"] dst-address]
 :local dns1 ("backup.cloudns.asia")
 :local dns2 ("network.cloudns.asia")
-:local msg [/sys scr get [find name="Mikrotik error message"] comment]
-:local msgnama [/sys scr get [find name="Mikrotik error message"] name]
+:local msg [/sys scr get [find comment="Mikrotik error message"] comment]
+:local msgnama [/sys scr get [find comment="Mikrotik error message"] name]
 
 :local fconfig [:parse [/system script get TokenBotTelegram source]];
 :local tname ("ayreelin")
@@ -29,6 +28,6 @@ tool fetch url="$url&text=%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3
 <b>Public IP:</b> %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$public</a> %0A\
 <b>DNS 1:</b> %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$user.$dns1</a> %0A\
 <b>DNS 2:</b> %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$user.$dns2</a> %0A\
-<i>Mikrotik can't update %22<b>%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$msg</a></b>%22 please check </i>&parse_mode=html" mode=https src-path="/" dst-path="/$msgnama-$usernama"
+<i>Mikrotik can't update %22<b>%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$msg</a></b>%22 please check </i>&parse_mode=html" mode=https src-path="/" dst-path="/$msgnama-$user"
 :delay 1s
-/file rem [find where name="$msgnama-$usernama"]
+/file rem [find where name="$msgnama-$user"]
