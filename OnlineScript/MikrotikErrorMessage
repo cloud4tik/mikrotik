@@ -18,7 +18,7 @@
 :local tokenID ($cfg -> "$tname-tokenID")
 :local chatID ($cfg->"$tname-chatID")
 :local url "$link$tokenID/sendmessage?chat_id=$chatID";
-tool fetch url="$url&text=%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E%23%23%20%3C%2Fa%3E<b><u>MikroTik Monitoring</u></b> %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E%20%23%23%3C%2Fa%3E %0A\
+tool fetch url="$url&text=%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E%23%23%20%3C%2Fa%3E<b><u>MikroTik Monitoring</u></b>%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E%20%23%23%3C%2Fa%3E %0A\
 %0A\
 <b><u>Mikrtik Detail:</u></b> %0A\
 <b>Name:</b> %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$router</a> %0A\
