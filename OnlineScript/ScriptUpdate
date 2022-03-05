@@ -1,17 +1,47 @@
 :local ResetRunCoun ("Reset Run Count")
 :local tokenTelegram ("TokenBotTelegram")
-:local comm [/sys scr get [find name="ScriptUpdate"] comment]
+:local public ("publicip")
+:local vpn ("Vpn Connection")
+:local user [/sys scr get [find name="ScriptUpdate"] comment]
 :local owner [/sys scr get [find name="ScriptUpdate"] owner]
 
+#Reset Reset Run Count sys Sheduler
 if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="$ResetRunCoun"] != "") do={
-	:log info "ada"
+	/sys scr run [find where name="$ResetRunCoun"]
+	:delay 1s
+	/file rem [find where name=$ResetRunCoun]
+	/sys scr rem [find where name="$ResetRunCoun"]
 } else={
-	:log info "tidak ada"
 	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ResetRunCountSystemSheduler" mode=https src-path="/" dst-path="/$ResetRunCoun"
 	:delay 2s
 	:local dataReset [/file get "$ResetRunCoun" contents]
 	:delay 2s
-	/sys scr add name="$ResetRunCoun" comment="$comm" owner=$owner source="$dataReset"
-	:delay 2s
+	/sys scr add name="$ResetRunCoun" comment="$user" owner=$owner source="$dataReset"
+	:delay 1s
 	/sys scr run [find where name="$ResetRunCoun"]
+	:delay 1s
+	/file rem [find where name=$ResetRunCoun]
+	/sys scr rem [find where name="$ResetRunCoun"]
+}
+
+:delay 2s
+
+#PPTP Connection Check (Add and Remove PPTP connection)
+
+if ([/file find where name="$vpn"] != "" or [/sys scr find where name="$vpn"] != "") do={
+	/sys scr run [find where name="$vpn"]
+	:delay 1s
+	/file rem [find where name=$vpn]
+	/sys scr rem [find where name="$vpn"]
+} else={
+	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$vpn"
+	:delay 2s
+	:local dataVpn [/file get "$vpn" contents]
+	:delay 2s
+	/sys scr add name="$vpn" comment="$user" owner=$owner source="$dataVpn"
+	:delay 1s
+	/sys scr run [find where name="$vpn"]
+	:delay 1s
+	/file rem [find where name=$vpn]
+	/sys scr rem [find where name="$vpn"]
 }
