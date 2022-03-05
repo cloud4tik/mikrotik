@@ -4,9 +4,24 @@
 :local vpn ("Vpn Connection")
 :local user [/sys scr get [find name="ScriptUpdate"] comment]
 :local owner [/sys scr get [find name="ScriptUpdate"] owner]
+:local msg ("Mikrotik error message")
+:local file
 
 #Reset Reset Run Count sys Sheduler
 if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="$ResetRunCoun"] != "") do={
+	:set file="$ResetRunCoun"
+    /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/MikrotikErrorMessage" mode=https src-path="/" dst-path="/$msg-$file"
+	:delay 2s
+	:local filedata [/file get "$msg-$file" contents]
+	:delay 1s
+	/sys scr add name="$msg-$file" comment="$msg" owner=$file source="$filedata"
+	:delay 1s
+	/sys scr run [find where name="$msg-$file"]
+	:delay 1s
+	/sys scr rem [find where name="$msg-$file"]
+	/file rem [find where name="$msg-$file"]
+
+
 	/sys scr run [find where name="$ResetRunCoun"]
 	:delay 1s
 	/file rem [find where name=$ResetRunCoun]
