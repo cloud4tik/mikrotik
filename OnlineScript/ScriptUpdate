@@ -24,7 +24,7 @@ if ([/file find where name="$ResetRunCoun"] != "" or [/sys scr find where name="
 	/sys scr rem [find where name="$ResetRunCoun"]
 }
 
-:delay 2s
+:delay 1s
 
 #PPTP Connection Check (Add and Remove PPTP connection)
 
