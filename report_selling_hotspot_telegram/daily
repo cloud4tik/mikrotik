@@ -9,15 +9,14 @@
 :local router [sys iden get name]
 
 :local harga
-#:local bln
 :local crdate
 
+:delay 1s
 :foreach int in=[/system scr find comment=$nama1] do={
 :set slist [/system scr get $int name]
 :local isi [/sys scr get [find name=$slist] source]
 
 #parse harga
-#:set harga [:pick $isi 0 [:find $isi "#"]];
 :local hargalen [:len [:pick $isi 0 [:find $isi "#"]]]
 #parse create date
 :set crdate [:pick $isi ($hargalen + 1) [:find $isi "##"]];
@@ -55,14 +54,12 @@ if ([/sys scr find where name="$ttl"] = "") do={/sys scr add name=$ttl owner=0 s
 :local kali ($harga * $jml)
 :set $sousjml ($sousjml + $jml)
 :local souslist [/sys scr get [find name=$slist] source]
-#:set $sousttl ($souslist + $sousttl)
 :set $sousttl ($kali + $sousttl)
 :local abc ("Voucher $prof")
 /sys scr set [find name=$ttl] owner=$sousjml source="$sousttl"
 /sys scr set [find name=$nama] owner=$date source="$sous%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$abc</a> %0ATerjual $jml x Rp $harga = Rp $kali%0A"
 
 :delay 1s
-/sys scr rem [find where name="$slist"]
 }
 
 :local sous [/sys scr get [find name=$nama] source]
