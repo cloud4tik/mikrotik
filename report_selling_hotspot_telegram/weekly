@@ -1,1 +1,76 @@
+:local nama ("Total rekap mingguan")
+:local nama1 ("Rekap mingguan")
+:local nama2 ("Tgl rekap mingguan")
+:local ttl ("Total harga rekap mingguan")
+:local slist ;
+:local int ;
+:local date [/system clock get date ];
+:local time [/system clock get time ];
+:local router [sys iden get name]
 
+:local harga
+:local crdate
+
+:delay 1s
+:foreach int in=[/system scr find comment=$nama1] do={
+:set slist [/system scr get $int name]
+:local isi [/sys scr get [find name=$slist] source]
+
+#parse harga
+:local hargalen [:len [:pick $isi 0 [:find $isi "#"]]]
+#parse create date
+:set crdate [:pick $isi ($hargalen + 1) [:find $isi "##"]];
+:local crdatelen [:len $crdate]
+}
+
+:local tgl [:pick $crdate 4 6];
+:local tglc [:pick $crdate 5 6]
+:local bln [:pick $crdate 0 3];
+:local thn [:pick $crdate 7 11];
+:if ([:pick $crdate 4 5] = 0) do={ :set tgl ($tglc)}
+
+if ([/sys scr find where name="$nama"] = "") do={/sys scr add name=$nama owner=$date source="<i>Berikut adalah <b><u>rekapan MINGGUAN</u></b> hasil penjualan voucher %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$router</b></a> periode $crdate -> $date</i> %0A%0A<b><u>Detail:</u></b> %0A"
+} else {
+  /sys scr set [find name="$nama"] owner=$date source="<i>Berikut adalah <b><u>rekapan MINGGUAN</u></b> hasil penjualan voucher %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$router</b></a> periode $crdate -> $date</i> %0A%0A<b><u>Detail:</u></b> %0A"
+}
+if ([/sys scr find where name="$ttl"] = "") do={/sys scr add name=$ttl owner=0 source="0"
+} else {
+  sys scr set [find name="$ttl"] owner=0 source="0"
+}
+
+:foreach int in=[/system scr find comment=$nama1] do={
+:local sous [/sys scr get [find name=$nama] source]
+:local sousjml [/sys scr get [find name=$ttl] owner]
+:local sousttl [/sys scr get [find name=$ttl] source]
+:local sousttl [/sys scr get [find name=$ttl] source]
+:set slist [/system scr get $int name]
+:local isi [/sys scr get [find name=$slist] source]
+:local isinama [/sys scr get [find name=$slist] name]
+:local isinamalen [:len [:pick $isinama 0 [:find $isinama "#"]]]
+:local prof [:pick $isinama ($isinamalen + 1) [:find $isinama "##"]]
+
+:set harga [:pick $isi 0 [:find $isi "#"]];
+:local jml [/sys scr get [find name=$slist] owner]
+:local kali ($harga * $jml)
+:set $sousjml ($sousjml + $jml)
+:local souslist [/sys scr get [find name=$slist] source]
+:set $sousttl ($kali + $sousttl)
+:local abc ("Voucher $prof")
+/sys scr set [find name=$ttl] owner=$sousjml source="$sousttl"
+/sys scr set [find name=$nama] owner=$date source="$sous%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$abc</a> %0ATerjual $jml x Rp $harga = Rp $kali%0A"
+
+:delay 1s
+}
+
+:local sous [/sys scr get [find name=$nama] source]
+:local sousjml [/sys scr get [find name=$ttl] owner]
+:local sousttl [/sys scr get [find name=$ttl] source]
+:local abcd ("<b>Total Penjualan</b>")
+/sys scr set [find name=$nama] owner=$date source="$sous %0A%3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E$abcd</a> %0ATerjual $sousjml voucher = Rp $sousttl"
+/sys scr set  [find name=$nama2] owner="$date" source="$date, $time"
+delay 2s
+/sys scr run [find where name="telegram $nama"]
+delay 1s
+if ([/sys scr find where name="$nama"] != "") do={/sys scr rem [find where name="$nama"]}
+if ([/sys scr find where name="$nama1"] != "") do={/sys scr rem [find where name="$nama1"]}
+if ([/sys scr find where name="telegram $nama"] != "") do={/sys scr rem [find where name="telegram $nama"]}
