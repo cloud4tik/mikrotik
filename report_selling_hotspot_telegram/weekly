@@ -29,9 +29,9 @@
 :local thn [:pick $crdate 7 11];
 :if ([:pick $crdate 4 5] = 0) do={ :set tgl ($tglc)}
 
-if ([/sys scr find where name="$nama"] = "") do={/sys scr add name=$nama owner=$date source="<i>Berikut adalah <b><u>rekapan MINGGUAN</u></b> hasil penjualan voucher %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$router</b></a> periode $crdate -> $date</i> %0A%0A<b><u>Detail:</u></b> %0A"
+if ([/sys scr find where name="$nama"] = "") do={/sys scr add name=$nama owner=$date source="<i>Berikut adalah %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$nama1</b></a> hasil penjualan voucher %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$router</b></a> periode $crdate -> $date</i> %0A%0A<b><u>Detail:</u></b> %0A"
 } else {
-  /sys scr set [find name="$nama"] owner=$date source="<i>Berikut adalah <b><u>rekapan MINGGUAN</u></b> hasil penjualan voucher %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$router</b></a> periode $crdate -> $date</i> %0A%0A<b><u>Detail:</u></b> %0A"
+  /sys scr set [find name="$nama"] owner=$date source="<i>Berikut adalah %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$nama1</b></a> hasil penjualan voucher %3Ca%20href%3D%22tg%3A%2F%2Fuser%3Fid%3D%24chatID%22%3E<b>$router</b></a> periode $crdate -> $date</i> %0A%0A<b><u>Detail:</u></b> %0A"
 }
 if ([/sys scr find where name="$ttl"] = "") do={/sys scr add name=$ttl owner=0 source="0"
 } else {
