@@ -1,5 +1,5 @@
 :local judul ("Rekapan penjualan vocher")
-:local file ("Total rekapan bulanan")
+:local file ("Total rekap bulanan")
 :local sous [/sys scr get [find name=$file] source]
 :local comm ("TelegramNotif")
 
