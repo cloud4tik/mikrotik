@@ -1,14 +1,14 @@
 :local nama ("Total rekap harian")
-:local nama1 ("Rekap harian")
-:local nama2 ("Tgl rekap harian")
-:local ttl ("Total harga rekap harian")
+:local nama1 ("Rekapan harian")
+:local nama2 ("Tgl rekapan harian")
+:local ttl ("Total harga rekapan harian")
 :local slist ;
 :local int ;
 :local date [/system clock get date ];
 :local time [/system clock get time ];
-:local router [sys iden get name]
 :local telegram ("TelegramNotif")
 :local judul ("selling report")
+:local router [sys scr get [find where comment="$judul"] owner]
 
 :local harga
 :local crdate
