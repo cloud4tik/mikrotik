@@ -5,7 +5,6 @@
 
 :local fconfig [:parse [/system script get TokenBotTelegram source]];
 :local tname [sys scr get [find where comment="$comm"] owner]
-:log info "tname=$tname"
 :local cfg [$fconfig]
 :put "cfg=$cfg"
 :local link ($cfg -> "url")
