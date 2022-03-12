@@ -1,7 +1,7 @@
 :local nama ("Total rekap harian")
-:local nama1 ("Rekapan harian")
-:local nama2 ("Tgl rekapan harian")
-:local ttl ("Total harga rekapan harian")
+:local nama1 ("Rekap harian")
+:local nama2 ("Tgl rekap harian")
+:local ttl ("Total harga rekap harian")
 :local slist ;
 :local int ;
 :local date [/system clock get date ];
