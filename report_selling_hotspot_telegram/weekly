@@ -77,3 +77,4 @@ delay 1s
 if ([/sys scr find where name="$nama"] != "") do={/sys scr rem [find where name="$nama"]}
 if ([/sys scr find where name="$nama1"] != "") do={/sys scr rem [find where name="$nama1"]}
 if ([/sys scr find where comment="$telegram"] != "") do={/sys scr rem [find where comment="$telegram"]}
+if ([/sys scr find where name="$ttl"] != "") do={/sys scr rem [find where name="$ttl"]}
