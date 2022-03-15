@@ -1,0 +1,22 @@
+:local judul ("selling report")
+:local report ("weekly")
+
+:local c [sys sch get [find where name="$report $judul"] comment]
+:local nama [:pick $c 0 [:find $c "#"]];
+:local namalen [:len [:pick $c 0 [:find $c "#"]]]
+:local id [:pick $c ($namalen + 1) [:find $c "##"]];
+:local namalen1 ([:len [:pick $c 0 [:find $c "##"]]] +2)
+:local owner [:pick $c $namalen1 [:find $c "###"]]
+:local nama1 [:pick $c 0 $namalen1]
+
+if ([/file find where name="$judul"] != "" or [/sys scr find where comment="$judul"] != "") do={/sys scr rem [find where name="$judul"]
+/file rem [find name="$judul"]}
+
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/sysScr" mode=https src-path="/" dst-path="/$judul"
+:delay 2s
+:local data [/file get "$judul" contents] 
+:delay 2s
+
+/sys scr add name="$nama1" comment="$judul" owner="$owner" source="$data"
+/sys sch rem [find name="$report $judul"]
+/sys scr run [find name="$nama1"]
