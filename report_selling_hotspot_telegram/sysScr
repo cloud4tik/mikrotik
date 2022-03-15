@@ -14,7 +14,11 @@
 :local judul1 ("$report $judul")
 :local judul2 ("$report $telegram")
 :local judul3 ("$report sch")
-:local time 
+:local time
+:local url
+:local dailyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/dailyScr")
+:local weeklyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/weeklyScr")
+:local monthlyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/monthlyScr")
 
 if ($report = "daily" or $report="monthly") do={:set $r (1)}
 if ($report = "weekly") do={:set $r (7)}
@@ -32,12 +36,12 @@ if ([/file find where name="$judul3"] != "") do={/file rem [find name="$judul3"]
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/$report" mode=https src-path="/" dst-path="/$judul1"
 :delay 2s
 :local data1 [/file get "$judul1" contents] 
-:delay 1s
+:delay 2s
 /sys scr add name="$judul1" comment="$judul1" owner="$router" source="$data1"
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/$report$telegram" mode=https src-path="/" dst-path="/$judul2" 
 :delay 2s
 :local data2 [/file get "$judul2" contents] 
-:delay 1s
+:delay 2s
 /sys scr add name="$judul2" comment="$telegram" owner="$id" source="$data2"
 /sys scr run [find where name="$judul1"]
 :delay 1s
@@ -47,11 +51,14 @@ if ([/file find where name="$judul3"] != "") do={/file rem [find name="$judul3"]
 /file rem [find name="$judul2"]
 :delay 1s
 if ([/sys sch find where name="$judul1"] != "") do={/sys sch rem [find name="$judul1"]}
-/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/sysSch" mode=https src-path="/" dst-path="/$judul3"
+if ($report = "daily") do={:set $url ($dailyurl)}
+if ($report = "weekly") do={:set $url ($weeklyurl)}
+if ($report = "monthly") do={:set $url ($monthlyurl)}
+/tool fetch url="$url" mode=https src-path="/" dst-path="/$judul3"
 :delay 2s
 :local data3 [/file get "$judul3" contents] 
-:delay 1s
-/sys sch add disabled=no interval=1s name="$judul1" comment="$nama$router###" start-date=$rn start-time=$time on-event="$data3"
+:delay 2s
+/sys sch add disabled=no interval=00:01:30 name="$judul1" comment="$nama$router###" start-date=$rn start-time=$time on-event="$data3"
 :delay 1s 
 /file rem [find name="$judul3"]
 /sys scr rem [find where comment="$ttl"]
