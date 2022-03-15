@@ -15,6 +15,7 @@
 :local judul2 ("$report $telegram")
 :local judul3 ("$report sch")
 :local time
+:local int
 :local url
 :local dailyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/dailyScr")
 :local weeklyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/weeklyScr")
@@ -23,9 +24,9 @@
 if ($report = "daily" or $report="monthly") do={:set $r (1)}
 if ($report = "weekly") do={:set $r (7)}
 :local rn [$shiftDate date=$date days=$r];
-if ($report = "daily") do={:set $time ("00:00:05")}
-if ($report = "weekly") do={:set $time ("00:00:07")}
-if ($report = "monthly") do={:set $time ("00:00:09")}
+if ($report = "daily") do={:set $time ("00:00:05");:set $time ("00:00:10")}
+if ($report = "weekly") do={:set $time ("00:00:07");:set $time ("00:01:40")}}
+if ($report = "monthly") do={:set $time ("00:00:09");:set $time ("00:03:10")}}
 
 if ([/file find where name="$judul1"] != "" or [/sys scr find where name="$judul1"] != "") do={/sys scr rem [find where name="$judul1"]
 /file rem [find name="$judul1"]}
@@ -58,7 +59,7 @@ if ($report = "monthly") do={:set $url ($monthlyurl)}
 :delay 2s
 :local data3 [/file get "$judul3" contents] 
 :delay 2s
-/sys sch add disabled=no interval=00:01:30 name="$judul1" comment="$nama$router###" start-date=$rn start-time=$time on-event="$data3"
+/sys sch add disabled=no interval=$int name="$judul1" comment="$nama$router###" start-date=$rn start-time=$time on-event="$data3"
 :delay 1s 
 /file rem [find name="$judul3"]
 /sys scr rem [find where comment="$ttl"]
