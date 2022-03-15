@@ -17,9 +17,9 @@
 :local time
 :local int
 :local url
-:local dailyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/dailyScr")
-:local weeklyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/weeklyScr")
-:local monthlyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/monthlyScr")
+:local dailyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/dailySch")
+:local weeklyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/weeklySch")
+:local monthlyurl ("https://raw.githubusercontent.com/cloud4tik/mikrotik/main/report_selling_hotspot_telegram/monthlySch")
 
 if ($report = "daily" or $report="monthly") do={:set $r (1)}
 if ($report = "weekly") do={:set $r (7)}
