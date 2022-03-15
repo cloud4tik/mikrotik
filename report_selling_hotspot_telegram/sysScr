@@ -25,8 +25,8 @@ if ($report = "daily" or $report="monthly") do={:set $r (1)}
 if ($report = "weekly") do={:set $r (7)}
 :local rn [$shiftDate date=$date days=$r];
 if ($report = "daily") do={:set $time ("00:00:05");:set $int ("00:00:10")}
-if ($report = "weekly") do={:set $time ("00:00:07");:set $int ("00:01:40")}
-if ($report = "monthly") do={:set $time ("00:00:09");:set $int ("00:03:10")}
+if ($report = "weekly") do={:set $time ("00:00:07");:set $int ("00:02:00")}
+if ($report = "monthly") do={:set $time ("00:00:09");:set $int ("00:04:10")}
 
 if ([/file find where name="$judul1"] != "" or [/sys scr find where name="$judul1"] != "") do={/sys scr rem [find where name="$judul1"]
 /file rem [find name="$judul1"]}
