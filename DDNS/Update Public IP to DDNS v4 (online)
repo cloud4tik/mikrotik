@@ -44,10 +44,10 @@ if ($currentip != $newip) do={
 /file remove "$user-1 update ip"
 :delay 1s
 
-/tool fetch url="$url2$token2" mode=https dst-path="$user-2 update ip"
-:delay 4s
-/file remove "$user-2 update ip"
-:delay 1s
+#/tool fetch url="$url2$token2" mode=https dst-path="$user-2 update ip"
+#:delay 4s
+#/file remove "$user-2 update ip"
+#:delay 1s
 
 :delay 2s
 if ([/file find where name="$tokendns"] != "") do={/file remove "$tokendns"}
