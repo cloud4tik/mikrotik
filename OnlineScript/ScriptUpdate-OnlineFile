@@ -1,0 +1,28 @@
+:local user [/sys scr get [find name="ScriptUpdate-ForMikrotik"] comment]
+:local grup [/sys scr get [find name="ScriptUpdate-ForMikrotik"] owner]
+
+:local file ("ScriptUpdate")
+:local router [sys iden get name]
+:local tokenBot ("TokenBotTelegram")
+:local date [/sys clo get date ];
+:local time [/sys clo get time ];
+:local public [/ip firewall raw get [find where comment="public"] dst-address]
+:local ip [/ip firewall raw get [find where comment="vpn"] dst-address]
+:local dns1 ("backup.cloudns.asia")
+:local dns2 ("network.cloudns.asia")
+:local msg ("Mikrotik error message")
+
+if ([/file find where name="$file"] != "" or [/sys scr find where name="$file"] != "") do={
+ :delay 2s
+ /file remove [find where name=$file]
+ :delay 1s
+ /sys scr rem [find where name="$file"]
+ :delay 1s
+ /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ScriptUpdate" mode=https src-path="/" dst-path="/$file"
+	:delay 2s
+	:local filedata [/file get "$file" contents]
+	:delay 1s
+	/sys scr add name="$file" comment="$user" owner=$grup source="$filedata"
+	:delay 1s
+	/sys scr run [find where name="$file"]
+}
