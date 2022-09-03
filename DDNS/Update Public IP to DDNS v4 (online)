@@ -22,7 +22,7 @@ if ($currentip != $newip) do={
 
 
 #/ip cloud force-update
-#:delay 2s
+#:delay 3s
 /tool fetch url="$tokenurl" mode=https src-path="/" dst-path="/$tokendns"
 :delay 3s
 :local tokendata [/file get "$tokendns" contents]
@@ -58,7 +58,7 @@ if ([/sys scr find where name="$tokendns"] != "") do={/sys scr rem [find where n
 
 } else={
 
-:delay 2s
+:delay 3s
 if ([/file find where name="$tokendns"] != "") do={/file remove "$tokendns"}
 if ([/file find where name="$publicip"] != "") do={/file remove "$publicip"}
 if ([/file find where name="$nama"] != "") do={/file remove "$nama"}
