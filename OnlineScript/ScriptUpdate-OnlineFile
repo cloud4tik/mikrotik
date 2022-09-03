@@ -13,24 +13,24 @@
 :local msg ("Mikrotik error message")
 
 if ([/file find where name="$file"] != "" or [/sys scr find where name="$file"] != "") do={
- :delay 2s
+ :delay 3s
  /file remove [find where name=$file]
- :delay 1s
+ :delay 3s
  /sys scr rem [find where name="$file"]
  :delay 3s
  /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ScriptUpdate" mode=https src-path="/" dst-path="/$file"
-	:delay 2s
+	:delay 3s
 	:local filedata [/file get "$file" contents]
-	:delay 1s
+	:delay 3s
 	/sys scr add name="$file" comment="$user" owner=$grup source="$filedata"
-	:delay 1s
+	:delay 4s
 	/sys scr run [find where name="$file"]
 } else={
 	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/ScriptUpdate" mode=https src-path="/" dst-path="/$file"
-	:delay 2s
+	:delay 3s
 	:local filedata [/file get "$file" contents]
-	:delay 1s
+	:delay 3s
 	/sys scr add name="$file" comment="$user" owner=$grup source="$filedata"
-	:delay 1s
+	:delay 4s
 	/sys scr run [find where name="$file"]
 }
