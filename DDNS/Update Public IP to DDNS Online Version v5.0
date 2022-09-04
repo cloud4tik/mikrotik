@@ -1,0 +1,101 @@
+#Update Public IP to DDNS Online Version v5.0
+#========================================
+
+#ID Mikrotik
+:local user [/sys scr get [find name="ScriptUpdate-ForMikrotik"] comment]
+:local grup [/sys scr get [find name="ScriptUpdate-ForMikrotik"] owner]
+
+:local file ("Update DDNS MikroTik")
+:delay 2s
+if ([/file find where name="$file"] != "") do={/file remove "$file"}
+:delay 1s
+if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
+:delay 2s
+:log warning "Update DDNS IP. Please wait a moment.."
+:log info "===================="
+:delay 1s
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20v3.0%20(token)" mode=https src-path="/" dst-path="/$file"
+:delay 5s
+:local tokendata [/file get "$file" contents]
+/sys scr add name="$file" comment="$user" owner=$grup source="$tokendata"
+:delay 4s
+:local fconfig [:parse [/system script get $file source]]
+
+:local cfg [$fconfig]
+:put "cfg=$cfg"
+:local url1 ($cfg->"url1")
+:local url2 ($cfg->"url2")
+:local token1 ($cfg->"$user-1")
+:local token2 ($cfg->"$user-2")
+
+:delay 1s
+:log warning "Cheking DDNS IP..."
+
+:if ($grup = "ganjil") do={
+/tool fetch url="https://tcp.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
+} else={
+/tool fetch url="http://ipv4.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
+}
+:delay 3s
+:local result [/file get publicip.txt contents]
+
+:local newip [$result]
+
+# parse the current IPv4 result
+:local currentip [/ip firewall filter get [find where comment=public] dst-address];
+:delay 3s
+/file remove "publicip.txt"
+
+:if ($currentip != $newip) do={
+
+:log error "Current ddns ip not seme as new ddns ip"
+:log info "$currentip != $newip"
+:log error "ddns ip need update.."
+:log warning "ddns ip update now. Pelase wait a moment.."
+:log error "Dont turn off your router.."
+
+/ip firewall filter set [find where comment=public] dst-address=$newip
+/ip firewall filter set [find where comment=public1] dst-address=$newip
+/ip firewall raw set [find where comment=public] dst-address=$newip
+/ip firewall raw set [find where comment=public1] dst-address=$newip
+#/ip firewall nat set [find where comment=public] dst-address=$newip
+#/ip firewall nat set [find where comment=public1] dst-address=$newip
+
+#:log info "update ip cloud"
+#/ip cloud force-update
+:delay 2s
+#:log info "...."
+
+/tool fetch url="$url1$token1" mode=https dst-path="$user-1 update ip"
+:delay 4s
+/file remove "$user-1 update ip"
+:delay 1s
+:log info "...."
+
+#/tool fetch url="$url2$token2" mode=https dst-path="$user-2 update ip"
+#:delay 4s
+#/file remove "$user-2 update ip"
+#:delay 1s
+#:log info "...."
+
+:delay 3s
+/file remove "$file"
+/sys scr rem "$file"
+
+:delay 1s
+
+:log warning "ddns ip has been updated"
+:log warning "Finish.."
+
+} else={
+
+:delay 3s
+/file remove "$file"
+/sys scr rem "$file"
+
+:delay 1s
+:log warning "Current ddns ip seme as new ddns ip"
+:log info "$currentip = $newip"
+:log warning "ddns ip no need update.."
+:log warning "Finish.."
+}
