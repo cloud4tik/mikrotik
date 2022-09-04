@@ -57,8 +57,8 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 
 /ip firewall filter set [find where comment=public] dst-address=$newip
 /ip firewall filter set [find where comment=public1] dst-address=$newip
-/ip firewall raw set [find where comment=public] dst-address=$newip
-/ip firewall raw set [find where comment=public1] dst-address=$newip
+#/ip firewall raw set [find where comment=public] dst-address=$newip
+#/ip firewall raw set [find where comment=public1] dst-address=$newip
 #/ip firewall nat set [find where comment=public] dst-address=$newip
 #/ip firewall nat set [find where comment=public1] dst-address=$newip
 
