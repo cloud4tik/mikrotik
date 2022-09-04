@@ -14,12 +14,12 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 :delay 2s
 :log warning "Update DDNS IP. Please wait a moment.."
 :log info "===================="
-:delay 1s
+:delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20v3.0%20(token)" mode=https src-path="/" dst-path="/$file"
 :delay 5s
 :local tokendata [/file get "$file" contents]
 /sys scr add name="$file" comment="$user" owner=$grup source="$tokendata"
-:delay 4s
+:delay 5s
 :local fconfig [:parse [/system script get $file source]]
 
 :local cfg [$fconfig]
@@ -29,7 +29,7 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 :local token1 ($cfg->"$user-1")
 :local token2 ($cfg->"$user-2")
 
-:delay 1s
+:delay 5s
 :log warning "Cheking DDNS IP..."
 
 :if ($grup = "ganjil") do={
@@ -37,14 +37,14 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 } else={
 /tool fetch url="http://ipv4.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
 }
-:delay 3s
+:delay 5s
 :local result [/file get publicip.txt contents]
 
 :local newip [$result]
 
 # parse the current IPv4 result
 :local currentip [/ip firewall filter get [find where comment=public] dst-address];
-:delay 3s
+:delay 5s
 /file remove "publicip.txt"
 
 :if ($currentip != $newip) do={
@@ -64,37 +64,37 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 
 #:log info "update ip cloud"
 #/ip cloud force-update
-:delay 2s
+:delay 5s
 #:log info "...."
 
 /tool fetch url="$url1$token1" mode=https dst-path="$user-1 update ip"
-:delay 4s
+:delay 5s
 /file remove "$user-1 update ip"
-:delay 1s
+:delay 5s
 :log info "...."
 
 #/tool fetch url="$url2$token2" mode=https dst-path="$user-2 update ip"
-#:delay 4s
+#:delay 5s
 #/file remove "$user-2 update ip"
 #:delay 1s
 #:log info "...."
 
-:delay 3s
+:delay 5s
 /file remove "$file"
 /sys scr rem "$file"
 
-:delay 1s
+:delay 5s
 
 :log warning "ddns ip has been updated"
 :log warning "Finish.."
 
 } else={
 
-:delay 3s
+:delay 5s
 /file remove "$file"
 /sys scr rem "$file"
 
-:delay 1s
+:delay 5s
 :log warning "Current ddns ip seme as new ddns ip"
 :log info "$currentip = $newip"
 :log warning "ddns ip no need update.."
