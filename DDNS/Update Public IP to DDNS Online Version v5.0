@@ -2,8 +2,9 @@
 #========================================
 
 #ID Mikrotik
-:local user [/sys scr get [find name="ScriptUpdate-ForMikrotik"] comment]
-:local grup [/sys scr get [find name="ScriptUpdate-ForMikrotik"] owner]
+:local sc ("support script")
+:local user [/sys scr get [find name="$sc"] comment]
+:local grup [/sys scr get [find name="$sc"] owner]
 
 :local file ("Update DDNS MikroTik")
 :delay 2s
