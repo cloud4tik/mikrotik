@@ -22,6 +22,9 @@ if ([/file find where name="$step2"] != "" ) do={/file remove [find where name="
 if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$tep2"]}
 if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
 if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$tep3"]}
+if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
+
+/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20Online%20Version%20v5.0" mode=https src-path="/" dst-path="/$step1"
@@ -30,10 +33,6 @@ if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name
 :delay 5s
 /sys scr add name="$step1" comment="$user" owner=$grup source="$step1data"
 :delay 5s
-/sys scr run [find where name="$step1"]
-:delay 5s
-if ([/file find where name="$step1"] != "" ) do={/file remove [find where name="$step1"]}
-if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]} 
 :log info "$step1 > status complite.."
 
 :delay 5s
@@ -43,10 +42,6 @@ if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name
 :delay 5s
 /sys scr add name="$step2" comment="$user" owner=$grup source="$step2data"
 :delay 5s
-/sys scr run [find where name="$step2"]
-:delay 5s
-if ([/file find where name="$step2"] != "" ) do={/file remove [find where name="$step2"]}
-if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$step2"]} 
 :log info "$step2 > status complite.."
 
 :delay 5s
@@ -56,10 +51,6 @@ if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name
 :delay 5s
 /sys scr add name="$step3" comment="$user" owner=$grup source="$step3data"
 :delay 5s
-/sys scr run [find where name="$step3"]
-:delay 5s
-if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
-if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$step3"]} 
 :log info "Please wait..."
 
 :delay 5s
@@ -68,9 +59,4 @@ if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name
 :local step3data [/file get "$step3" contents]
 :delay 5s
 /sys scr add name="$step3" comment="$user" owner=$grup source="$step3data"
-:delay 5s
-/sys scr run [find where name="$step3"]
-:delay 5s
-if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
-if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$step3"]} 
 :log info "$step3 > status complite.."
