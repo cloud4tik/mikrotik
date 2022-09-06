@@ -36,7 +36,7 @@ if ([/file find where name="$step1"] != "" ) do={/file remove [find where name="
 if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]} 
 :log info "$step1 > status complite.."
 
-:delay 10s
+:delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$step2"
 :delay 5s
 :local step2data [/file get "$step2" contents]
@@ -48,3 +48,16 @@ if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name
 if ([/file find where name="$step2"] != "" ) do={/file remove [find where name="$step2"]}
 if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$step2"]} 
 :log info "$step2 > status complite.."
+
+:delay 5s
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0" mode=https src-path="/" dst-path="/$step3"
+:delay 5s
+:local step3data [/file get "$step3" contents]
+:delay 5s
+/sys scr add name="$step3" comment="$user" owner=$grup source="$step3data"
+:delay 5s
+/sys scr run [find where name="$step3"]
+:delay 5s
+if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
+if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$step3"]} 
+:log info "$step3 > status complite.."
