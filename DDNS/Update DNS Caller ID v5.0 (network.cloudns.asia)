@@ -1,0 +1,74 @@
+:local file ("Token Update DDNS IP network.cloudns.asia")
+:delay 2s
+if ([/file find where name="$file"] != "") do={/file remove "$file"}
+if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
+:delay 2s
+:log warning "Update DDNS IP via CallerID. Please wait a moment.."
+:log info "===================="
+:delay 1s
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20via%20CallerID%20(network.cloudns.asia)" mode=https src-path="/" dst-path="/$file"
+:delay 3s
+:local tokendata [/file get "$file" contents]
+/sys scr add name="$file" comment="$file" source="$tokendata"
+:delay 3s
+:local fconfig [:parse [/system script get $file source]]
+
+:local cfg [$fconfig]
+
+:put "cfg=$cfg"
+
+:local oldvlist ;
+:local pptplist "PPTP interfaces \n \n" ;
+:local l2tplist "L2TP interfaces \n \n" ;
+:local vlist ;
+:local int ;
+:local ip;
+
+:log error "Checking active VPN for Cloudns. Please wait a moment.."
+:log info "============================"
+:delay 3s
+
+:set pptplist "$pptplist SERVERS: \n" ;
+:foreach int in=[/interface pptp-server find] do={
+  :set pptplist "$pptplist PPTP: $[/interface pptp-server get $int name] :  $[/interface pptp-server get $int running] \n" ;
+  :set $user "$[/interface pptp-server get $int user]"
+  :set $ip [/interface pptp-server get $int client-address]
+
+  # parse the username
+  :local userlen [:len $user]
+  :local starloc [:find $user "" -1]
+  :set starloc ($starloc + 0)
+  :local endloc ($userlen - 2) 
+  :local n [:pick $user $starloc $endloc]
+
+  :local url ($cfg->"url")
+  :local token ($cfg->"$user")
+  :put "token=$token"
+  
+  :if ( [/interface pptp-client get $int running] = true ) do={
+    :log error "VPN $user active.."
+    :if ($userlen > 2 ) do={
+      :log warning "DNS $user update now.."
+      :log error "DNS $user not update.."
+      :log info ""
+      :log error "Checking other active VPN.."
+      } else={
+      :log warning "DNS $user update now.."
+      /tool fetch url="$url$token$ip" mode=https dst-path="$user.txt"
+      :delay 4s
+  
+      /file remove "$user.txt"
+      :log warning "DNS has been updated.."
+      :log info ""
+      :log error "Checking other active VPN.."
+      :delay 2s
+    }
+  }
+}
+:delay 2s
+:log error "No other active VPN.."
+:log info "Remove file update.."
+/file remove "$file"
+/sys scr rem "$file"
+:delay 2s
+:log warning "Finish.."
