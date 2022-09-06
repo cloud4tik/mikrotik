@@ -1,0 +1,41 @@
+#Script Update Mikrotik v5.0
+#online file
+#========================================
+:local snama ("Script Update Mikrotik v5.0")
+:local sc ("support script")
+:local user [/sys scr get [find name="$sc"] comment]
+:local grup [/sys scr get [find name="$sc"] owner]
+
+:local step1 ("Update DDNS")
+:local step2 ("Reconect ALL VPN")
+:local step3 ("Update Caller DDNS")
+:local date [/sys clo get date ];
+:local time [/sys clo get time ];
+
+:log warning "Update Security, DDNS, VPN MikroTik by cloud4tik..."
+:log info "Please wait a moment..."
+:log error "Don't turn off your router"
+
+if ([/file find where name="$step1"] != "" ) do={/file remove [find where name="$step1"]}
+if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]} 
+if ([/file find where name="$step2"] != "" ) do={/file remove [find where name="$step2"]}
+if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$tep2"]}
+if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
+if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$tep3"]}
+if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
+if ([/sys scr job find where scr="$snama"] != "") do={/sys scr job rem [find where scr="$snama"]}
+
+/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
+
+:delay 5s
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20Online%20Version%20v5.0" mode=https src-path="/" dst-path="/$step1"
+:delay 5s
+:local step1data [/file get "$step1" contents]
+:delay 5s
+/sys scr add name="$step1" comment="$user" owner=$grup source="$step1data"
+:delay 5s
+/sys scr run [find where name="$step1"]
+:delay 5s
+if ([/file find where name="$step1"] != "" ) do={/file remove [find where name="$step1"]}
+if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]} 
+:log info "$step1 > status complite.."
