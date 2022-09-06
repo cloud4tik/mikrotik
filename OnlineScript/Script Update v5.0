@@ -36,7 +36,7 @@ if ([/file find where name="$step1"] != "" ) do={/file remove [find where name="
 if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]} 
 :log info "$step1 > status complite.."
 
-:delay 5s
+:delay 10s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$step2"
 :delay 5s
 :local step2data [/file get "$step2" contents]
