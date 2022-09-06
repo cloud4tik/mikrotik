@@ -50,7 +50,20 @@ if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name
 :log info "$step2 > status complite.."
 
 :delay 5s
-/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0" mode=https src-path="/" dst-path="/$step3"
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(network.cloudns.asia)" mode=https src-path="/" dst-path="/$step3"
+:delay 5s
+:local step3data [/file get "$step3" contents]
+:delay 5s
+/sys scr add name="$step3" comment="$user" owner=$grup source="$step3data"
+:delay 5s
+/sys scr run [find where name="$step3"]
+:delay 5s
+if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
+if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$step3"]} 
+:log info "Please wait..."
+
+:delay 5s
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(dynv6.com)" mode=https src-path="/" dst-path="/$step3"
 :delay 5s
 :local step3data [/file get "$step3" contents]
 :delay 5s
