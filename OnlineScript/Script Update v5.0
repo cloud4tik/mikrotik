@@ -22,10 +22,6 @@ if ([/file find where name="$step2"] != "" ) do={/file remove [find where name="
 if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$tep2"]}
 if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
 if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$tep3"]}
-if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
-if ([/sys scr job find where scr="$snama"] != "") do={/sys scr job rem [find where scr="$snama"]}
-
-/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20Online%20Version%20v5.0" mode=https src-path="/" dst-path="/$step1"
