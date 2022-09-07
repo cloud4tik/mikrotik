@@ -3,6 +3,7 @@
 #========================================
 :local snama ("Script Update Mikrotik v5.0")
 :local sc ("support script")
+:local scriptnama ("Script v5 download")
 :local user [/sys scr get [find name="$sc"] comment]
 :local grup [/sys scr get [find name="$sc"] owner]
 
@@ -12,7 +13,7 @@
 :local date [/sys clo get date ];
 :local time [/sys clo get time ];
 
-if ([/sys scr job find where script="script v5"] ="" ) do={
+if ([/sys scr job find where script="$scriptnama"] ="" ) do={
 /sys scr run [find where name="$step1"]
 :delay 5s
 
