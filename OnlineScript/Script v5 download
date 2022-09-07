@@ -1,6 +1,9 @@
 #Script Update Mikrotik v5.0
 #online file
 #========================================
+
+:local scriptnama ("Script v5 run")
+
 :local snama ("Script Update Mikrotik v5.0")
 :local sc ("support script")
 :local user [/sys scr get [find name="$sc"] comment]
@@ -27,6 +30,8 @@ if ([/sys scr find where name="$step3-2"] != "") do={/sys scr rem [find where na
 #if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
 
 #/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
+
+if ([/sys scr job find where script="$scriptnama"] ="" ) do={
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20Online%20Version%20v5.0" mode=https src-path="/" dst-path="/$step1"
@@ -67,3 +72,7 @@ if ([/sys scr find where name="$step3-2"] != "") do={/sys scr rem [find where na
 :delay 5s
 /file remove [find where name="$step3-2"]
 :log info "$step3 > Script updated.."
+
+} else {
+  :log info "Mikrotik script not download"
+}
