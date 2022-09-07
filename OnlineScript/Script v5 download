@@ -32,7 +32,6 @@ if ([/sys scr find where name="$step3-2"] != "") do={/sys scr rem [find where na
 #/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
 
 if ([/sys scr job find where script="$scriptnama"] ="" ) do={
-
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20Online%20Version%20v5.0" mode=https src-path="/" dst-path="/$step1"
 :delay 5s
