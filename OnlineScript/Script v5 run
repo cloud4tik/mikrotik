@@ -1,9 +1,11 @@
 #Run Script v5.0
 #online file
 #========================================
+
+:local scriptnama ("Script v5 download")
+
 :local snama ("Script Update Mikrotik v5.0")
 :local sc ("support script")
-:local scriptnama ("Script v5 download")
 :local user [/sys scr get [find name="$sc"] comment]
 :local grup [/sys scr get [find name="$sc"] owner]
 
@@ -26,5 +28,5 @@ if ([/sys scr job find where script="$scriptnama"] ="" ) do={
 /sys scr run [find where name="$step3-2"]
 :delay 5s
 } else {
-	:log info "Mikrotik not update"
+  :log info "Mikrotik script not run"
 }
