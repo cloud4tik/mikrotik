@@ -1,0 +1,24 @@
+#Run Script v5.0
+#online file
+#========================================
+:local sc ("support script")
+:local user [/sys scr get [find name="$sc"] comment]
+:local grup [/sys scr get [find name="$sc"] owner]
+
+:local step1 ("Update DDNS")
+:local step2 ("Reconect ALL VPN")
+:local step3 ("Update Caller DDNS")
+:local date [/sys clo get date ];
+:local time [/sys clo get time ];
+
+/sys scr run [find where name="$step1"]
+:delay 5s
+
+/sys scr run [find where name="$step2"]
+:delay 5s
+
+/sys scr run [find where name="$step3-1"]
+:delay 5s
+
+/sys scr run [find where name="$step3-2"]
+:delay 5s
