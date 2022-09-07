@@ -12,16 +12,18 @@
 :local date [/sys clo get date ];
 :local time [/sys clo get time ];
 
-:log warning "Update Security, DDNS, VPN MikroTik by cloud4tik..."
+:log warning "Automatic Update script by cloud4tik..."
 :log info "Please wait a moment..."
 :log error "Don't turn off your router"
 
 if ([/file find where name="$step1"] != "" ) do={/file remove [find where name="$step1"]}
-if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]} 
+if ([/sys scr find where name="$step1"] != "") do={/sys scr rem [find where name="$step1"]}
 if ([/file find where name="$step2"] != "" ) do={/file remove [find where name="$step2"]}
-if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$tep2"]}
-if ([/file find where name="$step3"] != "" ) do={/file remove [find where name="$step3"]}
-if ([/sys scr find where name="$step3"] != "") do={/sys scr rem [find where name="$tep3"]}
+if ([/sys scr find where name="$step2"] != "") do={/sys scr rem [find where name="$step2"]}
+if ([/file find where name="$step3-1"] != "" ) do={/file remove [find where name="$step3-1"]}
+if ([/sys scr find where name="$step3-1"] != "") do={/sys scr rem [find where name="$step3-1"]}
+if ([/file find where name="$step3-2"] != "" ) do={/file remove [find where name="$step3-2"]}
+if ([/sys scr find where name="$step3-2"] != "") do={/sys scr rem [find where name="$step3-2"]}
 if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
 
 /sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
@@ -33,7 +35,8 @@ if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$
 :delay 5s
 /sys scr add name="$step1" comment="$user" owner=$grup source="$step1data"
 :delay 5s
-:log info "$step1 > status complite.."
+/file remove [find where name="$step1"]
+:log info "$step1 > Script updated.."
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$step2"
@@ -42,21 +45,25 @@ if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$
 :delay 5s
 /sys scr add name="$step2" comment="$user" owner=$grup source="$step2data"
 :delay 5s
-:log info "$step2 > status complite.."
+/file remove [find where name="$step2"]
+:log info "$step2 > Script updated.."
 
 :delay 5s
-/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(network.cloudns.asia)" mode=https src-path="/" dst-path="/$step3"
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(network.cloudns.asia)" mode=https src-path="/" dst-path="/$step3-1"
 :delay 5s
 :local step3data [/file get "$step3" contents]
 :delay 5s
-/sys scr add name="$step3" comment="$user" owner=$grup source="$step3data"
+/sys scr add name="$step3-1" comment="$user" owner=$grup source="$step3data"
 :delay 5s
+/file remove [find where name="$step3-1"]
 :log info "Please wait..."
 
 :delay 5s
-/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(dynv6.com)" mode=https src-path="/" dst-path="/$step3"
+/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(dynv6.com)" mode=https src-path="/" dst-path="/$step3-2"
 :delay 5s
-:local step3data [/file get "$step3" contents]
+:local step3data [/file get "$step3-2" contents]
 :delay 5s
-/sys scr add name="$step3" comment="$user" owner=$grup source="$step3data"
-:log info "$step3 > status complite.."
+/sys scr add name="$step3-2" comment="$user" owner=$grup source="$step3data"
+:delay 5s
+/file remove [find where name="$step3-2"]
+:log info "$step3 > Script updated.."
