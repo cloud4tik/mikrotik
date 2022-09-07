@@ -24,9 +24,9 @@ if ([/file find where name="$step3-1"] != "" ) do={/file remove [find where name
 if ([/sys scr find where name="$step3-1"] != "") do={/sys scr rem [find where name="$step3-1"]}
 if ([/file find where name="$step3-2"] != "" ) do={/file remove [find where name="$step3-2"]}
 if ([/sys scr find where name="$step3-2"] != "") do={/sys scr rem [find where name="$step3-2"]}
-if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
+#if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$sc"]}
 
-/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
+#/sys scr add name="$sc" comment="$user" owner=$grup source="This script automatic deleted. Don't Delete this script"
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20Online%20Version%20v5.0" mode=https src-path="/" dst-path="/$step1"
@@ -36,7 +36,7 @@ if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$
 /sys scr add name="$step1" comment="$user" owner=$grup source="$step1data"
 :delay 5s
 /file remove [find where name="$step1"]
-:log info "$step1 > Script download complete.."
+:log info "$step1 > Script updated.."
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/AddPPPSecretPPPOut" mode=https src-path="/" dst-path="/$step2"
@@ -46,7 +46,7 @@ if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$
 /sys scr add name="$step2" comment="$user" owner=$grup source="$step2data"
 :delay 5s
 /file remove [find where name="$step2"]
-:log info "$step2 > v.."
+:log info "$step2 > Script updated.."
 
 :delay 5s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20DNS%20Caller%20ID%20v5.0%20(network.cloudns.asia)" mode=https src-path="/" dst-path="/$step3-1"
@@ -66,4 +66,4 @@ if ([/sys scr find where name="$sc"] != "") do={/sys scr rem [find where name="$
 /sys scr add name="$step3-2" comment="$user" owner=$grup source="$step3data"
 :delay 5s
 /file remove [find where name="$step3-2"]
-:log info "$step3 > Script download complete.."
+:log info "$step3 > Script updated.."
