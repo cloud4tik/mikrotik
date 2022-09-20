@@ -1,25 +1,25 @@
-#Update Public IP to DDNS Online Version v5.0
+#Update Public IP to DDNS Online Version v3.0 (token online version)
+#/sys sch ad na="Update Public IP to DDNS Online Version v3.0-00:25:25" start-t=startup in=00:25:25
 #========================================
+#
 
-#ID Mikrotik
-:local sc ("support script")
-:local user [/sys scr get [find name="$sc"] comment]
-:local grup [/sys scr get [find name="$sc"] owner]
+#14
+:local user ("14")
+:local getting ("genap")
 
-:local file ("Update DDNS MikroTik")
+:local file ("Token Update DDNS IP MIkrotik")
 :delay 2s
 if ([/file find where name="$file"] != "") do={/file remove "$file"}
-:delay 1s
 if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 :delay 2s
 :log warning "Update DDNS IP. Please wait a moment.."
 :log info "===================="
-:delay 5s
+:delay 1s
 /tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/DDNS/Update%20Public%20IP%20to%20DDNS%20v3.0%20(token)" mode=https src-path="/" dst-path="/$file"
-:delay 5s
+:delay 3s
 :local tokendata [/file get "$file" contents]
-/sys scr add name="$file" comment="$user" owner=$grup source="$tokendata"
-:delay 5s
+/sys scr add name="$file" comment="$file" source="$tokendata"
+:delay 1s
 :local fconfig [:parse [/system script get $file source]]
 
 :local cfg [$fconfig]
@@ -29,17 +29,15 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 :local token1 ($cfg->"$user-1")
 :local token2 ($cfg->"$user-2")
 
-:delay 5s
+:delay 1s
 :log warning "Cheking DDNS IP..."
 if ([/file find where name="publicip.txt"] != "") do={/file remove "publicip.txt"}
-if ([/file find where name="$file"] != "") do={/file remove "$file"}
-:delay 2s
-:if ($grup = "ganjil") do={
+:if ($getting = "ganjil") do={
 /tool fetch url="https://tcp.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
 } else={
 /tool fetch url="http://ipv4.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
 }
-:delay 5s
+:delay 2s
 :local result [/file get publicip.txt contents]
 
 :local newip [$result]
@@ -64,39 +62,39 @@ if ([/file find where name="$file"] != "") do={/file remove "$file"}
 #/ip firewall nat set [find where comment=public] dst-address=$newip
 #/ip firewall nat set [find where comment=public1] dst-address=$newip
 
-#:log info "update ip cloud"
-#/ip cloud force-update
-:delay 5s
-#:log info "...."
-
-/tool fetch url="$url1$token1" mode=https dst-path="$user-1 update ip"
-:delay 5s
-/file remove "$user-1 update ip"
-:delay 5s
+:log info "update ip cloud"
+/ip cloud force-update
+:delay 2s
 :log info "...."
 
-#/tool fetch url="$url2$token2" mode=https dst-path="$user-2 update ip"
-#:delay 5s
-#/file remove "$user-2 update ip"
-#:delay 1s
-#:log info "...."
+/tool fetch url="$url1$token1" mode=https dst-path="$user-1 update ip"
+:delay 4s
+/file remove "$user-1 update ip"
+:delay 1s
+:log info "...."
 
-:delay 5s
+/tool fetch url="$url2$token2" mode=https dst-path="$user-2 update ip"
+:delay 4s
+/file remove "$user-2 update ip"
+:delay 1s
+:log info "...."
+
+:delay 2s
 /file remove "$file"
 /sys scr rem "$file"
 
-:delay 5s
+:delay 1s
 
 :log warning "ddns ip has been updated"
 :log warning "Finish.."
 
 } else={
 
-:delay 5s
+:delay 2s
 /file remove "$file"
 /sys scr rem "$file"
 
-:delay 5s
+:delay 1s
 :log warning "Current ddns ip seme as new ddns ip"
 :log info "$currentip = $newip"
 :log warning "ddns ip no need update.."
