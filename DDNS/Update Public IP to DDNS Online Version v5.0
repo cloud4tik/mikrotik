@@ -31,7 +31,8 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 
 :delay 5s
 :log warning "Cheking DDNS IP..."
-
+if ([/file find where name="publicip.txt"] != "") do={/file remove "publicip.txt"}
+:delay 2s
 :if ($grup = "ganjil") do={
 /tool fetch url="https://tcp.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
 } else={
