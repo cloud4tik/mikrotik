@@ -10,7 +10,7 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 :delay 3s
 :local tokendata [/file get "$file" contents]
 /sys scr add name="$file" comment="$file" source="$tokendata"
-:delay 3s
+:delay 2s
 :local fconfig [:parse [/system script get $file source]]
 
 :local cfg [$fconfig]
@@ -26,7 +26,7 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
 
 :log error "Checking active VPN for dynv6 Please wait a moment.."
 :log info "============================"
-:delay 3s
+:delay 2s
 
 :set pptplist "$pptplist SERVERS: \n" ;
 :foreach int in=[/interface pptp-server find] do={
@@ -55,7 +55,7 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
       } else={
       :log warning "DNS $user update now.."
       /tool fetch url="$url$token$ip" mode=https dst-path="$user.txt"
-      :delay 4s
+      :delay 2s
   
       /file remove "$user.txt"
       :log warning "DNS has been updated.."
