@@ -45,7 +45,7 @@ if ([/file find where name="publicip.txt"] != "") do={/file remove "publicip.txt
 
 # parse the current IPv4 result
 :local currentip [/ip firewall filter get [find where comment=public] dst-address];
-:delay 5s
+:delay 2s
 /file remove "publicip.txt"
 
 :if ($currentip != $newip) do={
