@@ -55,7 +55,7 @@ if ([/sys scr find where name="$file"] != "") do={/sys scr rem "$file"}
       } else={
       :log warning "DNS $user update now.."
       /tool fetch url="$url$token$ip" mode=https dst-path="$user.txt"
-      :delay 4s
+      :delay 2s
   
       /file remove "$user.txt"
       :log warning "DNS has been updated.."
