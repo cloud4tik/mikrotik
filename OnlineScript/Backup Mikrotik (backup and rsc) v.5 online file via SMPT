@@ -38,7 +38,7 @@
 :local sendtolen ([:len [:pick $data 0 [:find $data "######"]]] +6)
 :local path [:pick $data $sendtolen [:find $data "#######"]]
 
-/tool e-mail set address=[:resolve $address] from=<$login> password=$password port=$port start-tls=yes user=$login
+/tool e-mail set address=[:resolve $address] from="<$login> password=$password port=$port start-tls=yes user=$login
 
 :if ($grup = "ganjil") do={
 /tool fetch url="https://tcp.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
