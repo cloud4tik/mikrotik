@@ -62,6 +62,6 @@ export file="$fnama"
 /tool e-mail send to="$sendto" subject="New $n $b file, $date $time" body="MIkrotik backup. file-type: $b | date: $date | time: $time | ip: $ip | dns-name: $dns | router-name: $id | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$r"
 :delay 5s
 if ([/file find where name="$fnama.$r"] != "" ) do={/file remove [find where name="$$fnama.$r"]}
-if ([/sys scr find where name="$d"] != "") do={/sys scr rem [find where name="$d"]}
+#if ([/sys scr find where name="$d"] != "") do={/sys scr rem [find where name="$d"]}
 
 :log warning "Mikrotik backup successful..."
