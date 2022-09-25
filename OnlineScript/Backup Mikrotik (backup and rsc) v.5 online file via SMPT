@@ -56,14 +56,14 @@
 :delay 15s
 /tool e-mail send to="$sendto" subject="New $iden $b file, $date $time" body="Mikrotik backup. file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$b"
 :delay 5s
-if ([/file find where name="$fnama.$b"] != "" ) do={/file remove [find where name="$$fnama.$b"]}
+if ([/file find where name="$fnama.$b"] != "" ) do={/file remove [find where name="$fnama.$b"]}
 
 :delay 3s
 export file="$fnama"
 :delay 15s
 /tool e-mail send to="$sendto" subject="New $iden $b file, $date $time" body="Mikrotik backup. file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$r"
 :delay 5s
-if ([/file find where name="$fnama.$r"] != "" ) do={/file remove [find where name="$$fnama.$r"]}
+if ([/file find where name="$fnama.$r"] != "" ) do={/file remove [find where name="$fnama.$r"]}
 if ([/sys scr find where name="$d"] != "") do={/sys scr rem [find where name="$d"]}
 
 :log warning "Mikrotik backup successful..."
