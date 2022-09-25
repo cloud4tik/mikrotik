@@ -21,7 +21,7 @@
 :local day [ :pick $date 4 6 ]
 :local mon [ :pick $date 0 3 ]
 :local year [ :pick $date 7 11 ]
-:local fnama ("$iden-$day-$mon-$year")
+:local fnama ("$iden_$day-$mon-$year")
 
 :local data [/sys scr get [find name="Backup Data"] source]
 #parse
