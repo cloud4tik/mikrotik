@@ -40,6 +40,7 @@ if ([/file find where name="publicip.txt"] != "") do={/file remove "publicip.txt
 :local result [/file get publicip.txt contents]
 
 :local newip [$result]
+:log info "new ip=$newip"
 
 # parse the current IPv4 result
 :local currentip [/ip firewall filter get [find where comment=public] dst-address];
