@@ -4,6 +4,7 @@
 #https://api.telegram.org/bot1060041205:AAG5fofVSyKcqOq5Hst6zE-gzDDvFLxpp4k/getMe
 #https://api.telegram.org/bot1060041205:AAG5fofVSyKcqOq5Hst6zE-gzDDvFLxpp4k/getUpdates
 #grup telegram /join @(nama BOT)
+#https://api.telegram.org/bot1060041205:AAG5fofVSyKcqOq5Hst6zE-gzDDvFLxpp4k/getUpdates untuk melihat chatID
 #https://api.telegram.org/bot$tokenID/sendmessage?chat_id=$chatID&text=test
 
 :log info "Load token bot telegram..";
@@ -12,6 +13,9 @@
 
 "url"="https://api.telegram.org/bot"
 
+#Alnhis.Net
+"Alnhis.Net-tokenID"="5586811894:AAFCBamnNOXl_lLh7IXb1IO9sARd886iJcQ"
+"Alnhis.Net-chatID"="-868391186"
 #ayreelin
 "ayreelin-tokenID"="909083035:AAGyJarQb-A1YTN0pYlqk2ai2wqg8ch9pdM"
 "ayreelin-chatID"="-355713274"
