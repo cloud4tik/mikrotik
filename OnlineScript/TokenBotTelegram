@@ -67,5 +67,8 @@
 #For.Net;
 "For.Net-tokenID"="6075742888:AAHbCxGOhEtQfjA5lB6jsVNemFB6fJDlDnA";
 "For.Net-chatID"="-973240652";
+#Lolan.Net;
+"Lolan.Net-tokenID"="6075742888:AAHbCxGOhEtQfjA5lB6jsVNemFB6fJDlDnA";
+"Lolan.Net-chatID"="-973240652";
 }
 return $config;
