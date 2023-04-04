@@ -55,12 +55,12 @@ if ([/file find where name="publicip.txt"] != "") do={/file remove "publicip.txt
 :log warning "ddns ip update now. Pelase wait a moment.."
 :log error "Dont turn off your router.."
 
-/ip firewall filter set [find where comment=public] dst-address=$newip
-#/ip firewall filter set [find where comment=public1] dst-address=$newip
-/ip firewall raw set [find where comment=public] dst-address=$newip
-/ip firewall raw set [find where comment=public1] dst-address=$newip
-#/ip firewall nat set [find where comment=public] dst-address=$newip
-#/ip firewall nat set [find where comment=public1] dst-address=$newip
+if ([/ip firewall filter find comment="public"] != "") do={/ip firewall filter set [find comment=public] dst-address=$newip}
+if ([/ip firewall filter find comment="public1"] != "") do={/ip firewall filter set [find comment=public1] dst-address=$newip}
+if ([/ip firewall raw find comment="public"] != "") do={/ip firewall raw set [find comment=public] dst-address=$newip}
+if ([/ip firewall raw find comment="public1"] != "") do={/ip firewall raw set [find comment=public1] dst-address=$newip}
+if ([/ip firewall nat find comment="public"] != "") do={/ip firewall nat set [find comment=public] dst-address=$newip}
+if ([/ip firewall nat find comment="public"] != "") do={/ip firewall nat set [find comment=public] dst-address=$newip}
 
 #:log info "update ip cloud"
 #/ip cloud force-update
