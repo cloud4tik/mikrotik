@@ -41,7 +41,7 @@
 /tool e-mail set address=[:resolve $address] from="<$login>" password=$password port=$port start-tls=yes user=$login
 
 :if ($grup = "ganjil") do={
-/tool fetch url="https://tcp.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
+/tool fetch url="https://api.ipify.org/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
 } else={
 /tool fetch url="http://ipv4.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
 }
