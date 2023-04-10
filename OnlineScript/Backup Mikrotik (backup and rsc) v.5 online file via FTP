@@ -52,7 +52,7 @@
 
 /system backup save name="$fnama"
 :delay 15s
-/tool fetch address=$address src-path=$fnama user=$login mode=ftp password=$password dst-path=/$path/$fnama.$b upload=yes port=$port
+/tool fetch address=$address src-path=$fnama user=$login mode=ftp password=$password dst-path=/$path/"$fnama.$b" upload=yes port=$port
 #/tool e-mail send to="$sendto" subject="New $iden $b file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$b"
 #:delay 5s
 #if ([/file find where name="$fnama.$b"] != "" ) do={/file remove [find where name="$fnama.$b"]}
