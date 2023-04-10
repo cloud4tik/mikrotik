@@ -1,0 +1,68 @@
+#Backup Mikrotik Extensi (backup and rsc) online file via FTP
+#=============================================================
+
+:local sc ("support script")
+:local user [/sys scr get [find name="$sc"] comment]
+:local grup [/sys scr get [find name="$sc"] owner]
+:local iden [/sys scr get [find name="$sc"] source]
+
+:local date [/sys clo get date ];
+:local time [/sys clo get time ];
+:local model [/sys rou get model]
+:local board [/sys reso get board-name];
+:local factory [/sys reso get factory-software];
+:local version [/sys reso get version];
+:local pack [/sys reso get architecture-name];
+:local dns [/ip clo get dns-name]
+:local b ("backup")
+:local r ("rsc")
+:local d ("Backup Data")
+
+:local day [ :pick $date 4 6 ]
+:local mon [ :pick $date 0 3 ]
+:local year [ :pick $date 7 11 ]
+:local fnama ("$iden_$day-$mon-$year")
+
+:local data [/sys scr get [find name="Backup Data"] source]
+#parse
+:local datalen [:len [:pick $data 0 [:find $isi "#"]]]
+:local address [:pick $data ($datalen + 0) [:find $data "##"]];
+:local addresslen ([:len [:pick $data 0 [:find $data "##"]]] +2)
+:local login [:pick $data $addresslen [:find $data "###"]]
+:local loginlen ([:len [:pick $data 0 [:find $data "###"]]] +3)
+:local password [:pick $data $loginlen [:find $data "####"]]
+:local passwordlen ([:len [:pick $data 0 [:find $data "####"]]] +4)
+:local port [:pick $data $passwordlen [:find $data "#####"]]
+:local portlen ([:len [:pick $data 0 [:find $data "#####"]]] +5)
+:local sendto [:pick $data $portlen [:find $data "######"]]
+:local sendtolen ([:len [:pick $data 0 [:find $data "######"]]] +6)
+:local path [:pick $data $sendtolen [:find $data "#######"]]
+
+:if ($grup = "ganjil") do={
+/tool fetch url="https://api.ipify.org/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
+} else={
+/tool fetch url="http://ipv4.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
+}
+:delay 3s
+:local result [/file get publicip.txt contents]
+:delay 3s
+/file remove "publicip.txt"
+
+:log warning "Mikrotik backup is begin please wait a moment..."
+
+/system backup save name="$fnama"
+:delay 15s
+/tool fetch address=$address src-path=$fnama user=$login mode=ftp password=$password dst-path=/$path/$fnama.$b upload=yes port=$port
+#/tool e-mail send to="$sendto" subject="New $iden $b file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$b"
+#:delay 5s
+#if ([/file find where name="$fnama.$b"] != "" ) do={/file remove [find where name="$fnama.$b"]}
+
+#:delay 3s
+#export file="$fnama"
+#:delay 15s
+#/tool e-mail send to="$sendto" subject="New $iden $r file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$r"
+#:delay 5s
+#if ([/file find where name="$fnama.$r"] != "" ) do={/file remove [find where name="$fnama.$r"]}
+#if ([/sys scr find where name="$d"] != "") do={/sys scr rem [find where name="$d"]}
+
+:log warning "Mikrotik backup successful..."
