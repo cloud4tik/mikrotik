@@ -1,10 +1,7 @@
-#Backup Mikrotik Extensi (backup and rsc) online file via SMPT
+#Backup Mikrotik v.5.1 Extensi (backup and rsc) online file via SMPT (online script)
 #=============================================================
 
-:local sc ("support script")
-:local user [/sys scr get [find name="$sc"] comment]
-:local grup [/sys scr get [find name="$sc"] owner]
-:local iden [/sys scr get [find name="$sc"] source]
+:local iden [/sys iden get name]
 
 :local date [/sys clo get date ];
 :local time [/sys clo get time ];
@@ -17,11 +14,37 @@
 :local b ("backup")
 :local r ("rsc")
 :local d ("Backup Data")
+:local e ("Backup Mikrotik")
 
 :local day [ :pick $date 4 6 ]
 :local mon [ :pick $date 0 3 ]
 :local year [ :pick $date 7 11 ]
 :local fnama ("$iden_$day-$mon-$year")
+
+#hari
+:local uptime [$shiftDate date=$date days=$expired];
+:local dayname ""
+:local months [:toarray "jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec"]
+:local daytbl [:toarray "sun,mon,tue,wed,thu,fri,sat"]
+:local month [:pick $date 0 3]
+:local day [:pick $date 4 6]
+:local dayc [:pick $date 5 6]
+:local year [:pick $date 7 11]
+:if ([:pick $date 4 5] = 0) do={ :set day ($dayc)}
+:local sum 0
+:local aaa 0
+:local yyy 0
+:local mmm 0
+:local nmonth 1
+:for mindex from=0 to=[:len $months] do={
+  :if ([:pick $months $mindex] = $month) do={:set nmonth ($mindex + 1) }
+}
+:set aaa ((14 - $nmonth) / 12)
+:set yyy ($year - $aaa)
+:set mmm ($nmonth + 12 * $aaa - 2)
+:set sum (7000 + $day + $yyy + ($yyy / 4) - ($yyy / 100) + ($yyy / 400) + ((31 * $mmm) / 12))
+:set sum ($sum - (($sum / 7) * 7))
+:set dayname [:pick $daytbl $sum]
 
 :local data [/sys scr get [find name="Backup Data"] source]
 #parse
@@ -40,30 +63,47 @@
 
 /tool e-mail set address=[:resolve $address] from="<$login>" password=$password port=$port start-tls=yes user=$login
 
-:if ($grup = "ganjil") do={
-/tool fetch url="https://api.ipify.org/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
-} else={
-/tool fetch url="http://ipv4.backup.cloudns.asia/?publicip.txt" mode=https src-path="/" dst-path="/publicip.txt"
-}
-:delay 3s
-:local result [/file get publicip.txt contents]
-:delay 3s
-/file remove "publicip.txt"
+:local currentIP [/ip firewall filter get [find where comment=public] dst-address];
+:local newIP
+:delay 2s
 
+if ($dayname = "mon" or $dayname = "wed" or $dayname = "fri") do={
+  /tool fetch url="http://ip1.dynupdate.no-ip.com/?publicip.txt" mode=https src-path="/" dst-path="/newIP"
+  :delay 2s
+  :set newIP [/file get newIP contents]
+  /file remove "newIP"
+}
+if ($dayname = "tue" or $dayname = "thu" or $dayname = "sat") do={
+  /tool fetch url="http://v4.ident.me/?ip.txt" mode=https src-path="/" dst-path="/newIP"
+  :delay 2s
+  :set newIP [/file get newIP contents]
+  /file remove "newIP"
+}
+if ($dayname = "sun") do={
+  /tool fetch url="https://now-dns.com/ip?publicip.txt" mode=https src-path="/" dst-path="/newIP"
+  :delay 2s
+  :set newIP [/file get newIP contents]
+  /file remove "newIP"
+}
+
+:delay 3s
 :log warning "Mikrotik backup is begin please wait a moment..."
 
 /system backup save name="$fnama"
 :delay 15s
-/tool e-mail send to="$sendto" subject="New $iden $b file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$b"
+/tool e-mail send to="$sendto" subject="New $iden $b file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $newIP | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$b"
 :delay 5s
 if ([/file find where name="$fnama.$b"] != "" ) do={/file remove [find where name="$fnama.$b"]}
 
 :delay 3s
 export file="$fnama"
 :delay 15s
-/tool e-mail send to="$sendto" subject="New $iden $r file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $result | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$r"
+/tool e-mail send to="$sendto" subject="New $iden $r file, $date $time" body="MikroTik Backup >> file-type: $b | date: $date | time: $time | ip: $newIP | dns-name: $dns | router-name: $iden | router-model: $model | router-type: $board | software-package: $pack | factory-version: $factory | current-version: $version" file="$fnama.$r"
 :delay 5s
 if ([/file find where name="$fnama.$r"] != "" ) do={/file remove [find where name="$fnama.$r"]}
+if ([/file find where name="$e"] != "" ) do={/file remove [find where name="$e"]}
 if ([/sys scr find where name="$d"] != "") do={/sys scr rem [find where name="$d"]}
+if ([/sys scr find where name="$e"] != "") do={/sys scr rem [find where name="$e"]}
+
 
 :log warning "Mikrotik backup successful..."
