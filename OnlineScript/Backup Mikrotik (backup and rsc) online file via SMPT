@@ -31,6 +31,7 @@ if ([/file find name="$dayNip"] != "" ) do={/file remove [find name="$dayNip"]}
 /sys scr add name="$dayNip" comment="$dayNip" owner="$iden" source="$fdayNip"
 :delay 2s
 /sys scr run [find name="$dayNip"]
+if ([/file find name="$dayNip"] != "" ) do={/file remove [find name="$dayNip"]}
 } else {
   /sys scr run [find name="$dayNip"]
 }
