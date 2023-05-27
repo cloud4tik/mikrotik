@@ -105,5 +105,4 @@ if ([/file find where name="$e"] != "" ) do={/file remove [find where name="$e"]
 if ([/sys scr find where name="$d"] != "") do={/sys scr rem [find where name="$d"]}
 if ([/sys scr find where name="$e"] != "") do={/sys scr rem [find where name="$e"]}
 
-
 :log warning "Mikrotik backup successful..."
