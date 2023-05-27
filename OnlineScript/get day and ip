@@ -1,0 +1,43 @@
+#get day and ip v.1 (online and offline script)
+#/system script add name="get-day-and-ip" 
+#==================================
+
+:local date [/system clock get date]
+:local dayname ""
+:local months [:toarray "jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec"]
+:local daytbl [:toarray "sun,mon,tue,wed,thu,fri,sat"]
+:local month [:pick $date 0 3]
+:local day [:pick $date 4 6]
+:local dayc [:pick $date 5 6]
+:local year [:pick $date 7 11]
+:if ([:pick $date 4 5] = 0) do={ :set day ($dayc)}
+:local sum 0
+:local aaa 0
+:local yyy 0
+:local mmm 0
+:local nmonth 1
+:for mindex from=0 to=[:len $months] do={
+  :if ([:pick $months $mindex] = $month) do={:set nmonth ($mindex + 1) }
+}
+:set aaa ((14 - $nmonth) / 12)
+:set yyy ($year - $aaa)
+:set mmm ($nmonth + 12 * $aaa - 2)
+:set sum (7000 + $day + $yyy + ($yyy / 4) - ($yyy / 100) + ($yyy / 400) + ((31 * $mmm) / 12))
+:set sum ($sum - (($sum / 7) * 7))
+:set dayname [:pick $daytbl $sum]
+
+if ($dayname = "mon" or $dayname = "wed" or $dayname = "fri") do={
+  /tool fetch url="http://ip1.dynupdate.no-ip.com/?publicip.txt" mode=https src-path="/" dst-path="/newIP"
+  /file print file="hari"
+  /file set [find name="hari.txt"] content="$dayname"
+}
+if ($dayname = "tue" or $dayname = "thu" or $dayname = "sat") do={
+  /tool fetch url="http://v4.ident.me/?ip.txt" mode=https src-path="/" dst-path="/newIP"
+  /file print file="hari"
+  /file set [find name="hari.txt"] content="$dayname"
+}
+if ($dayname = "sun") do={
+  /tool fetch url="https://now-dns.com/ip?publicip.txt" mode=https src-path="/" dst-path="/newIP"
+  /file print file="hari"
+  /file set [find name="hari.txt"] content="$dayname"
+}
