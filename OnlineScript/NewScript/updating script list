@@ -1,0 +1,27 @@
+#updating script list (for mikrotik) 
+#=======================================
+
+#chose change :local for "chr" or "mikrotik"
+:local for "chr"
+:local filename "list script update"
+:local getscript "https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/list%20script%20update"
+
+if ([/sys scr find name="$filename"] = "") do={/sys scr remove [find name="$filename"]}
+if ([/file find name="$filename"] = "") do={/file remove [find name="$filename"]}
+
+tool fetch url="$getscript" mode=https src-path="/" dst-path="/$filename"
+:delay 2s
+:local content [/file get [find name="$filename"] contents]
+:delay 2s
+/sys scr add name="$filename" comment="$filename by cloud4tik" owner="$for" source="$content"
+
+:local findsource [/sys scr get [find name="$filename"] source]
+:delay 5s
+:local lensource [:len $findsource]
+:local 5s
+if ($lensource <= 0) do={
+	/sys scr remove [find name="$filename"]
+	/file remove [find name="$filename"]
+} else={
+	/sys scr run [find name="$filename"]
+}
