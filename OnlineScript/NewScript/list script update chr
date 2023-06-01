@@ -3,6 +3,8 @@
 :local 1l "https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/get-day-and-ip"
 
 if ([/sys scr find comment="$1"] = "") do={
+	if ([/sys scr find name="$1n"] != "") do={/sys scr remove [find name="$1n"]}
+	if ([/file find name="$1"] != "") do={/file remove [find name="$1"]}
 	/tool fetch url="https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/get-day-and-ip" mode=https src-path="/" dst-path="/$1"
 	:delay 4s
 	:local data1 [/file get [find name="$1"] contents]
