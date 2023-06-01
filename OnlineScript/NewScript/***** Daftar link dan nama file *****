@@ -2,7 +2,11 @@ nama : ==check list script1==
 link : https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/%3D%3Dcheck%20list%20script1%3D%3D
 
 nama : get-day-and-ip
+last version : get-day-and-ip-v1.0
 link : https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/get-day-and-ip
+
+nama : list script update chr
+link : https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/list%20script%20update%20chr
 
 nama : list script update
 link : https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/list%20script%20update
