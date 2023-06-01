@@ -1,6 +1,7 @@
 :local 1 "get-day-and-ip-v1.0"
 :local 1n "get-day-and-ip"
 :local 1l "https://raw.githubusercontent.com/cloud4tik/mikrotik/main/OnlineScript/NewScript/get-day-and-ip"
+:local filename "list script update"
 
 if ([/sys scr find comment="$1"] = "") do={
 	if ([/sys scr find name="$1n"] != "") do={/sys scr remove [find name="$1n"]}
@@ -12,7 +13,7 @@ if ([/sys scr find comment="$1"] = "") do={
 	/sys scr add name="$1n" comment="$1" owner="$o" source="$data1"
 	:dela 2s
 	/file remove [find name="$1"]
-	:log info "ada"
-} else={
-	:log info "kosong"
 }
+if ([/sys scr find name="$filename"] != "") do={/sys scr remove [find name="$filename"]}
+if ([/file find name="$filename"] != "") do={/file remove [find name="$filename"]}
+:log warning "You script up to date..."
