@@ -1,0 +1,147 @@
+#export-import config CHR old mikrotik to new v.1.0 build 10
+#for mikrotik v6
+#============================================
+
+#chose export/import
+
+:local chose "export"
+
+#sent to new chr
+:local adrs "43.153.206.225"
+:local login "rahsal"
+:local password "Pikacu87"
+:local port "21"
+
+#:local intlist "==int-list"
+:local ippool "==ip-pool"
+:local intbrid "==int-bridge"
+:local ppprofile "==ppp-profile"
+:local intl2tp "==intl2tp"
+:local firadrlist "==firadrlist"
+:local firfilter "==firfilter"
+:local firnat "==firnat"
+:local ipservice "==ipservice"
+:local ppsecret "==ppsecret"
+:local clockm "==clockm"
+:local iden "==iden"
+:local ntpcli "==ntpcli"
+:local scedul "==scedul"
+:local srip "==srip"
+:local routosp "==routing-ospf"
+
+if ($chose = "export") do={
+	#/interface list export file="$intlist"
+	#/tool fetch address=$adrs src-path="$intlist.rsc" user=$login mode=ftp password="$password" dst-path="$intlist.rsc" upload=yes port=$port
+	#:delay 3s
+	/ip pool export file="$ippool"
+	/tool fetch address=$adrs src-path="$ippool.rsc" user=$login mode=ftp password="$password" dst-path="$ippool.rsc" upload=yes port=$port
+	:delay 3s
+	/interface bridge export file="$intbrid"
+	/tool fetch address=$adrs src-path="$intbrid.rsc" user=$login mode=ftp password="$password" dst-path="$intbrid.rsc" upload=yes port=$port
+	:delay 3s
+	/ppp profile export file="$ppprofile"
+	/tool fetch address=$adrs src-path="$ppprofile.rsc" user=$login mode=ftp password="$password" dst-path="$ppprofile.rsc" upload=yes port=$port
+	:delay 3s
+	/interface l2tp-server server export file="$intl2tp"
+	/tool fetch address=$adrs src-path="$intl2tp.rsc" user=$login mode=ftp password="$password" dst-path="$intl2tp.rsc" upload=yes port=$port
+	:delay 3s
+	/ip firewall address-list export file="$firadrlist"
+	/tool fetch address=$adrs src-path="$firadrlist.rsc" user=$login mode=ftp password="$password" dst-path="$firadrlist.rsc" upload=yes port=$port
+	:delay 3s
+	/ip firewall filter export file="$firfilter"
+	/tool fetch address=$adrs src-path="$firfilter.rsc" user=$login mode=ftp password="$password" dst-path="$firfilter.rsc" upload=yes port=$port
+	:delay 3s
+	/ip firewall nat export file="$firnat"
+	/tool fetch address=$adrs src-path="$firnat.rsc" user=$login mode=ftp password="$password" dst-path="$firnat.rsc" upload=yes port=$port
+	:delay 3s
+	/ip service export file="$ipservice"
+	/tool fetch address=$adrs src-path="$ipservice.rsc" user=$login mode=ftp password="$password" dst-path="$ipservice.rsc" upload=yes port=$port
+	:delay 3s
+	/ppp secret export file="$ppsecret"
+	/tool fetch address=$adrs src-path="$ppsecret.rsc" user=$login mode=ftp password="$password" dst-path="$ppsecret.rsc" upload=yes port=$port
+	:delay 3s
+	/system clock manual export file="$clockm"
+	/tool fetch address=$adrs src-path="$clockm.rsc" user=$login mode=ftp password="$password" dst-path="$clockm.rsc" upload=yes port=$port
+	:delay 3s
+	/system identity export file="$iden"
+	/tool fetch address=$adrs src-path="$iden.rsc" user=$login mode=ftp password="$password" dst-path="$iden.rsc" upload=yes port=$port
+	:delay 3s
+	/system ntp client export file="$ntpcli"
+	/tool fetch address=$adrs src-path="$ntpcli.rsc" user=$login mode=ftp password="$password" dst-path="$ntpcli.rsc" upload=yes port=$port
+	:delay 3s
+	/system scheduler export file="$scedul"
+	/tool fetch address=$adrs src-path="$scedul.rsc" user=$login mode=ftp password="$password" dst-path="$scedul.rsc" upload=yes port=$port
+	:delay 3s
+	/system script export file="$srip"
+	/tool fetch address=$adrs src-path="$srip.rsc" user=$login mode=ftp password="$password" dst-path="$srip.rsc" upload=yes port=$port
+	:delay 3s
+	/routing ospf export file="$routosp"
+	/tool fetch address=$adrs src-path="$routosp.rsc" user=$login mode=ftp password="$password" dst-path="$routosp.rsc" upload=yes port=$port
+	:delay 5s
+	#if ([/file find name="$intlist.rsc"] != "" ) do={/file remove [find name="$intlist.rsc"]}
+	if ([/file find name="$ippool.rsc"] != "" ) do={/file remove [find name="$ippool.rsc"]}
+	if ([/file find name="$intbrid.rsc"] != "" ) do={/file remove [find name="$intbrid.rsc"]}
+	if ([/file find name="$ppprofile.rsc"] != "" ) do={/file remove [find name="$ppprofile.rsc"]}
+	if ([/file find name="$intl2tp.rsc"] != "" ) do={/file remove [find name="$intl2tp.rsc"]}
+	if ([/file find name="$firadrlist.rsc"] != "" ) do={/file remove [find name="$firadrlist.rsc"]}
+	if ([/file find name="$firfilter.rsc"] != "" ) do={/file remove [find name="$firfilter.rsc"]}
+	if ([/file find name="$firnat.rsc"] != "" ) do={/file remove [find name="$firnat.rsc"]}
+	if ([/file find name="$ipservice.rsc"] != "" ) do={/file remove [find name="$ipservice.rsc"]}
+	if ([/file find name="$ppsecret.rsc"] != "" ) do={/file remove [find name="$ppsecret.rsc"]}
+	if ([/file find name="$clockm.rsc"] != "" ) do={/file remove [find name="$clockm.rsc"]}
+	if ([/file find name="$iden.rsc"] != "" ) do={/file remove [find name="$iden.rsc"]}
+	if ([/file find name="$ntpcli.rsc"] != "" ) do={/file remove [find name="$ntpcli.rsc"]}
+	if ([/file find name="$scedul.rsc"] != "" ) do={/file remove [find name="$scedul.rsc"]}
+	if ([/file find name="$srip.rsc"] != "" ) do={/file remove [find name="$srip.rsc"]}
+	if ([/file find name="$routosp.rsc"] != "" ) do={/file remove [find name="$routosp.rsc"]}
+} else={
+	#/import file-name="$intlist.rsc"
+	#:delay 3s
+	/import file-name="$ippool.rsc"
+	:delay 3s
+	/import file-name="$intbrid.rsc"
+	:delay 3s
+	/import file-name="$ppprofile.rsc"
+	:delay 3s
+	/import file-name="$intl2tp.rsc"
+	:delay 3s
+	/import file-name="$firadrlist.rsc"
+	:delay 3s
+	/import file-name="$firfilter.rsc"
+	:delay 3s
+	/import file-name="$firnat.rsc"
+	:delay 3s
+	/import file-name="$ipservice.rsc"
+	:delay 3s
+	/import file-name="$ppsecret.rsc"
+	:delay 3s
+	/import file-name="$clockm.rsc"
+	:delay 3s
+	/import file-name="$iden.rsc"
+	:delay 3s
+	/import file-name="$ntpcli.rsc"
+	:delay 3s
+	/import file-name="$scedul.rsc"
+	:delay 3s
+	/import file-name="$srip.rsc"
+	:delay 3s
+	/import file-name="$routosp.rsc"
+	:delay 5s
+	#if ([/file find name="$intlist.rsc"] != "" ) do={/file remove [find name="$intlist.rsc"]}
+	if ([/file find name="$ippool.rsc"] != "" ) do={/file remove [find name="$ippool.rsc"]}
+	if ([/file find name="$intbrid.rsc"] != "" ) do={/file remove [find name="$intbrid.rsc"]}
+	if ([/file find name="$ppprofile.rsc"] != "" ) do={/file remove [find name="$ppprofile.rsc"]}
+	if ([/file find name="$intl2tp.rsc"] != "" ) do={/file remove [find name="$intl2tp.rsc"]}
+	if ([/file find name="$firadrlist.rsc"] != "" ) do={/file remove [find name="$firadrlist.rsc"]}
+	if ([/file find name="$firfilter.rsc"] != "" ) do={/file remove [find name="$firfilter.rsc"]}
+	if ([/file find name="$firnat.rsc"] != "" ) do={/file remove [find name="$firnat.rsc"]}
+	if ([/file find name="$ipservice.rsc"] != "" ) do={/file remove [find name="$ipservice.rsc"]}
+	if ([/file find name="$ppsecret.rsc"] != "" ) do={/file remove [find name="$ppsecret.rsc"]}
+	if ([/file find name="$clockm.rsc"] != "" ) do={/file remove [find name="$clockm.rsc"]}
+	if ([/file find name="$iden.rsc"] != "" ) do={/file remove [find name="$iden.rsc"]}
+	if ([/file find name="$ntpcli.rsc"] != "" ) do={/file remove [find name="$ntpcli.rsc"]}
+	if ([/file find name="$scedul.rsc"] != "" ) do={/file remove [find name="$scedul.rsc"]}
+	if ([/file find name="$srip.rsc"] != "" ) do={/file remove [find name="$srip.rsc"]}
+	if ([/file find name="$routosp.rsc"] != "" ) do={/file remove [find name="$routosp.rsc"]}
+}
+:log warning "finish.."
